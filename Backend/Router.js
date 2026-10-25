@@ -37,25 +37,19 @@ router.post("/orders", async (req, res) => {
         
         const msgText = `🎉 *Zenvikk Naya Order Aaya Hai!* 🎉\n\n👤 *Customer:* ${customerName}\n📞 *Phone:* ${phone}\n📦 *Quantity:* ${quantity}\n📍 *Address:* ${address.street}, ${address.city}, ${address.state} - ${address.pincode}`;
         
-        // React se '../Sneaker/sn-1-5.jpg' aayega, humein sirf naam 'sn-1-5.jpg' chahiye
-        const imageName = selectedImage.split('/').pop(); 
-        
-        // Backend folder ke hisaab se Sneaker folder dhoondhna
-        const backendFolder = __dirname; 
-        const path1 = path.join(backendFolder, "../frontend/src/Sneaker", imageName);
-        const path2 = path.join(backendFolder, "../frontend/public/Sneaker", imageName);
-        const path3 = path.join(backendFolder, "../frontend/Sneaker", imageName);
-        const path4 = path.join(backendFolder, "../Sneaker", imageName);
+        const imageRelativePath = selectedImage.startsWith("/Sneaker/")
+          ? selectedImage.slice("/Sneaker/".length)
+          : "";
+        const imageDirectory = path.resolve(__dirname, "../public/Sneaker");
+        const finalImagePath = path.resolve(imageDirectory, imageRelativePath);
+        const relativeImagePath = path.relative(imageDirectory, finalImagePath);
+        const imageIsInDirectory =
+          imageRelativePath &&
+          relativeImagePath !== ".." &&
+          !relativeImagePath.startsWith(`..${path.sep}`) &&
+          !path.isAbsolute(relativeImagePath);
 
-        let finalImagePath = "";
-
-        // Check karna ki photo kahan rakhi hai
-        if (fs.existsSync(path1)) finalImagePath = path1;
-        else if (fs.existsSync(path2)) finalImagePath = path2;
-        else if (fs.existsSync(path3)) finalImagePath = path3;
-        else if (fs.existsSync(path4)) finalImagePath = path4;
-
-        if (finalImagePath !== "") {
+        if (imageIsInDirectory && fs.existsSync(finalImagePath)) {
             // Photo mil gayi -> Asli Photo bhejo
             const media = MessageMedia.fromFilePath(finalImagePath);
             await whatsappClient.sendMessage(myWhatsAppNumber, media, { caption: msgText });
