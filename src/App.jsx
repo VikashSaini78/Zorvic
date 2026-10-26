@@ -268,10 +268,11 @@ const collectionsData = [
     { name: "Nike sneakers", brand: "NIKE", image: "/Sneaker/nike air force.jpg" },
     { name: "Nike Air Jordan", brand: "JORDAN", image: "/Sneaker/Jordan 1-1.jpg" },
     { name: "Yeezy Series", brand: "ADIDAS", image: "/Sneaker/Ad 1-1.jpg" },
-    // { name: "Skate Classics", brand: "VANS", image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=500&auto=format&fit=crop" },
    { name: "Yeezy Series", brand: "ADIDAS", image: "/Sneaker/Adizero 4-1.jpg" },
 
 ];
+
+
 
 const shoeSizes = ["6", "7", "8", "9", "10"];
 
@@ -287,6 +288,8 @@ export default function App() {
     const [toastMsg, setToastMsg] = useState("");
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+    const [scrollProgress, setScrollProgress] = useState(0);
 
     const showToast = (msg) => {
         setToastMsg(msg);
@@ -317,36 +320,6 @@ export default function App() {
     const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    // const handlePlaceOrder = async (formData) => {
-    //     showToast("Processing Order...");
-        
-    //     const payload = {
-    //         _subject: "New Order - Zenvik",
-    //         Name: formData.fname + " " + formData.lname,
-    //         Email: formData.email,
-    //         Phone: formData.phone,
-    //         Delivery_Address: `${formData.address}, ${formData.landmark ? 'Landmark: ' + formData.landmark + ', ' : ''}PIN: ${formData.zip} (Country: ${formData.country})`,
-    //         Items: cart.map(item => `${item.name} (Size: ${item.size}) x ${item.quantity}`).join(" | "),
-    //         Total: "Rs. " + cartTotal.toFixed(2),
-    //         _captcha: "false"
-    //     };
-
-    //     try {
-    //         await fetch("https://formsubmit.co/ajax/vs592928@gmail.com", {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json", "Accept": "application/json" },
-    //             body: JSON.stringify(payload)
-    //         });
-    //     } catch (error) {
-    //         console.error("Error:", error);
-    //     }
-
-    //     setIsCheckoutOpen(false);
-    //     setIsSuccessOpen(true);
-    //     setCart([]); 
-    // };
-
-    // Updated navigateTo function to handle collection filtering
    
    
    const handlePlaceOrder = async (formData) => {
@@ -403,6 +376,32 @@ export default function App() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+//     const scrollToTop = () => {
+//     window.scrollTo({ top: 0, behavior: 'smooth' });
+// };
+useEffect(() => {
+        const handleScroll = () => {
+            // Page ki total height aur scroll ki gayi height ka percentage nikalna
+            const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPosition = window.scrollY;
+            const progress = totalHeight > 0 ? (scrollPosition / totalHeight) * 100 : 0;
+            setScrollProgress(progress);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Page ko upar smooth scroll karne ka function
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Circle ring calculations
+    const radius = 22;
+    const circumference = 2 * Math.PI * radius;
+    const strokeOffset = circumference - (scrollProgress / 100) * circumference;
+
     return (
         <div className="font-sans bg-white text-black min-h-screen flex flex-col selection:bg-black selection:text-white">
             
@@ -429,12 +428,20 @@ export default function App() {
                         </div>
 
                         {/* Logo (Left) */}
-                        <div className="flex-1 md:flex-none flex items-center justify-center md:justify-start cursor-pointer" onClick={() => navigateTo('home')}>
+                        {/* <div className="flex-1 md:flex-none flex items-center justify-center md:justify-start cursor-pointer" onClick={() => navigateTo('home')}>
                             <div className="flex flex-col items-center">
                                 <span className="text-2xl sm:text-3xl font-serif italic tracking-tighter leading-none">Zv</span>
                                 <span className="text-[10px] tracking-[0.3em] font-light mt-1">ZENVIK</span>
                             </div>
-                        </div>
+                        </div> */}
+<div className="flex-1 md:flex-none flex items-center justify-center md:justify-start cursor-pointer" onClick={() => navigateTo('home')}><div className="flex flex-col items-center">
+        <img 
+            src="../public/Sneaker/Gemini_logo-removebg-preview.png" 
+            alt="Logo" 
+            className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-all" 
+        />
+    </div>
+</div>
 
                         {/* Desktop Nav (Center) */}
                         <div className="hidden md:flex flex-1 items-center justify-center">
@@ -475,6 +482,7 @@ export default function App() {
                         <button onClick={() => navigateTo('contact')} className="block w-full text-left font-light text-black py-2 text-sm">FAQ</button>
                     </div>
                 )}
+                
             </header>
 
             <main className="flex-1">
@@ -499,21 +507,191 @@ export default function App() {
                         onBuyNow={(size, qty) => { addToCart(selectedShoe, size, qty); setIsCheckoutOpen(true); }}
                     />
                 )}
+
+
+                
             </main>
 
-            <footer className="bg-white border-t border-gray-100 py-8 mt-auto">
-                <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <span className="text-xl font-serif italic tracking-tighter">Zv</span>
-                    <p className="text-gray-400 text-[10px] uppercase tracking-[0.2em] mt-2 mb-6">ZENVIK</p>
-                    <p className="text-gray-400 text-[11px] mb-6 font-light max-w-sm mx-auto">Classic. Premium. Timeless. Built for comfort, made to stand out.</p>
-                    <div className="flex justify-center gap-6 text-[12px] font-light text-gray-500">
-                        <span className="cursor-pointer hover:text-black">Privacy Policy</span>
-                        <span className="cursor-pointer hover:text-black">Terms of Service</span>
-                        <span className="cursor-pointer hover:text-black">Refund Policy</span>
+           
+
+
+            {/* footer  */}
+
+
+
+
+<footer className="bg-[#111111] pt-16 pb-8 px-6 md:px-12 text-white font-sans relative">
+            <div className="max-w-7xl mx-auto">
+                
+                {/* Top Section: 3 Columns */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+                    
+                    {/* Column 1: CUSTOMER SERVICE */}
+                    <div>
+                        <h3 className="font-bold text-sm uppercase tracking-wide mb-6">Customer Service</h3>
+                        <div className="space-y-3 text-[14px]">
+                            <p>Phone: +91 8875768157</p>
+                            <p>E-mail: vs592928@gmail.com</p>
+                        </div>
                     </div>
-                    <p className="text-gray-300 mt-8 text-[10px] font-light">&copy; 2026 ZENVIK.</p>
+
+                    {/* Column 2: COMPANY */}
+                    <div>
+                        <h3 className="font-bold text-sm uppercase tracking-wide mb-6">Company</h3>
+                        <div className="space-y-3 text-[14px]">
+                            <p>Zenvikk</p>
+                        </div>
+                    </div>
+
+                    {/* Column 3: OUR ADDRESS & NEWSLETTER */}
+                    <div>
+                        <h3 className="font-bold text-sm uppercase tracking-wide mb-6">Our Address</h3>
+                        <div className="space-y-4 text-[14px]">
+                            <p className="leading-relaxed">
+                                Banskhoh, Bassi, Jaipur, Rajasthan
+                            </p>
+                            
+                            {/* Newsletter Subscription */}
+                            <div className="pt-6">
+                                <form className="relative border-b border-gray-400 pb-2">
+                                    <input 
+                                        type="email" 
+                                        placeholder="Your email address" 
+                                        required
+                                        className="bg-transparent outline-none w-full pr-20 text-[14px] placeholder-gray-400 text-white"
+                                    />
+                                    <button 
+                                        type="submit" 
+                                        className="absolute right-0 bottom-2 font-bold text-[14px] hover:text-gray-300 transition"
+                                    >
+                                        Subscribe
+                                    </button>
+                                </form>
+                                <p className="text-[12px] text-gray-400 mt-2">
+                                    *Don't worry we don't spam
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </footer>
+
+                {/* Bottom Section: Policies */}
+                <div className="mt-16 md:mt-24 flex flex-wrap gap-6 md:gap-10 text-[13px] md:text-[14px] font-bold text-white">
+                    <a href="/privacy-policy" className="hover:underline">Privacy Policy</a>
+                    <a href="/refund-policy" className="hover:underline">Refund Policy</a>
+                    <a href="/shipping-policy" className="hover:underline">Shipping Policy</a>
+                    <a href="/terms-of-service" className="hover:underline">Terms of Service</a>
+                </div>
+                
+            </div>
+
+            {/* Floating Action Buttons (Right Side Bottom) */}
+            {/* Yahan 'gap-6' add kiya hai taaki buttons ke beech accha space rahe */}
+            <div className="fixed bottom-6 right-6 flex flex-col gap-6 z-50 items-center">
+                
+                {/* 
+                  NOTE: Maine yahan Call (WhatsApp) icon ko aapke kehne par hata (hide kar) diya hai. 
+                  Agar kabhi wapas chahiye ho, toh in {/* aur * /} ko hata dena.
+
+                <a 
+                    href="https://wa.me/918875768157" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition duration-300"
+                    aria-label="Chat on WhatsApp"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                    </svg>
+                </a>
+                */}
+                {/* Floating Action Buttons (Right Side Bottom) */}
+            <div className="fixed bottom-6 right-6 flex flex-col gap-5 z-50 items-center">
+                
+                {/* WhatsApp Button (Ye wapas aa gaya!) */}
+                <a 
+                    href="https://wa.me/918875768157" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition duration-300"
+                    aria-label="Chat on WhatsApp"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                    </svg>
+                </a>
+
+                {/* Scroll to Top Button (Progress Ring) */}
+                <div 
+                    onClick={scrollToTop}
+                    className={`relative w-14 h-14 cursor-pointer transition-opacity duration-500 ease-in-out ${scrollProgress > 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    aria-label="Scroll to top"
+                >
+                    <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r={radius} fill="#111111" stroke="#333333" strokeWidth="3" />
+                        <circle 
+                            cx="25" 
+                            cy="25" 
+                            r={radius} 
+                            fill="none" 
+                            stroke="#ffffff" 
+                            strokeWidth="3" 
+                            strokeLinecap="round"
+                            strokeDasharray={circumference}
+                            strokeDashoffset={strokeOffset}
+                            className="transition-all duration-300 ease-out"
+                        />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center text-white pb-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="m18 15-6-6-6 6"/>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+
+                {/* Back to Top Button (With Progress Ring) */}
+                <div 
+                    onClick={scrollToTop}
+                    // Jaise hi user thoda niche aayega tabhi ye button dikhega (opacity logic)
+                    className={`relative w-14 h-14 cursor-pointer transition-opacity duration-500 ease-in-out ${scrollProgress > 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    aria-label="Scroll to top"
+                >
+                    {/* SVG Background Ring aur Progress Ring */}
+                    <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 50 50">
+                        {/* Background dark circle */}
+                        <circle cx="25" cy="25" r={radius} fill="#111111" stroke="#333333" strokeWidth="3" />
+                        
+                        {/* White Progress Ring jo scroll ke sath bharegi */}
+                        <circle 
+                            cx="25" 
+                            cy="25" 
+                            r={radius} 
+                            fill="none" 
+                            stroke="#ffffff" 
+                            strokeWidth="3" 
+                            strokeLinecap="round"
+                            strokeDasharray={circumference}
+                            strokeDashoffset={strokeOffset}
+                            className="transition-all duration-300 ease-out"
+                        />
+                    </svg>
+
+                    {/* Beech me banawa Arrow Icon */}
+                    <div className="absolute inset-0 flex items-center justify-center text-white pb-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="m18 15-6-6-6 6"/>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+        
+
+
 
             <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg z-40 hover:scale-105 transition-transform flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -530,6 +708,10 @@ export default function App() {
             <div className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-black text-white text-[11px] px-6 py-3 shadow-xl transition-all duration-300 z-[90] flex items-center gap-3 ${toastMsg ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
                 <CheckCircle size={14} strokeWidth={1.5} /> <span>{toastMsg}</span>
             </div>
+        
+        
+        
+        
         </div>
     );
 }
@@ -553,18 +735,29 @@ function HomeView({ navigateTo }) {
     }, [heroBanners.length]);
 
     return (
+    
         <div className="bg-white animate-in fade-in duration-500 ">
+            
             {/* Auto Scrolling Hero Banner */}
-            <section className="relative w-full h-[50vh] md:h-[70vh] bg-[#f4f4f4] overflow-hidden cursor-pointer" onClick={() => navigateTo('catalog')}>
+            {/* 👇 YAHAN CHANGE KIYA HAI: Mobile ke liye height hata di, sirf desktop par 70vh rakhi hai 👇 */}
+            <section className="relative w-full md:h-[70vh] bg-white overflow-hidden cursor-pointer" onClick={() => navigateTo('catalog')}>
+                
+                {/* 🪄 MAGIC TRICK: Ye ek "Gayab" (invisible) image hai jo mobile me box ka height apne aap perfect kar degi */}
+                {heroBanners && heroBanners.length > 0 && (
+                    <img src={heroBanners[0]} className="w-full h-auto invisible md:hidden" alt="spacer" />
+                )}
+
                 {heroBanners.map((banner, index) => (
                     <div 
                         key={index} 
                         className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                     >
-                        <img src={banner} alt={`Banner ${index + 1}`} className="w-full h-full object-cover" />
+                        {/* Wapas 'object-contain md:object-cover' laga diya taaki mobile par poori dikhe */}
+                        <img src={banner} alt={`Banner ${index + 1}`} className="w-full h-full object-contain md:object-cover" />
                         <div className="absolute inset-0 bg-black/10"></div>
                     </div>
                 ))}
+                
             </section>
 
             {/* Features Bar */}
@@ -575,28 +768,29 @@ function HomeView({ navigateTo }) {
                 <div className="flex flex-col items-center gap-1.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> <span>Easy Returns</span></div>
             </div>
 
-            <section className="pt-20 pb-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-end mb-10">
-                    <h2 className="text-3xl font-semibold tracking-tight">Shop by collection</h2>
+            {/* Iske niche ka "Shop by collection" aur "Nike sneakers" wala code aapka pehle jaisa hi rahega... */}
+
+        <section className="pt-[48px] md:pt-20 pb-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex justify-between items-end mb-10">
+        <h2 className="text-3xl font-semibold tracking-tight">Shop by collection</h2>
+    </div>
+    
+    <div className="flex overflow-x-auto gap-4 pb-4 snap-x hide-scroll">
+        {collectionsData.map((col, idx) => (
+            <div 
+                key={idx} 
+                className="snap-center shrink-0 w-[220px] sm:w-[280px] flex flex-col items-center cursor-pointer group" 
+                onClick={() => navigateTo('catalog', col.brand)}
+            >
+                <div className="w-full aspect-[4/3] flex flex-col items-center justify-center p-4 bg-white">
+                    <h3 className="text-xl font-black italic tracking-tighter mb-4 text-black">{col.brand}</h3>
+                    <img src={col.image} alt={col.name} className="w-[80%] object-contain group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                
-                <div className="flex overflow-x-auto gap-4 pb-4 snap-x hide-scroll">
-                    {collectionsData.map((col, idx) => (
-                        <div 
-                            key={idx} 
-                            className="snap-center shrink-0 w-[220px] sm:w-[280px] flex flex-col items-center cursor-pointer group" 
-                            // Updated onClick to pass the brand name for filtering
-                            onClick={() => navigateTo('catalog', col.brand)}
-                        >
-                            <div className="w-full aspect-[4/3] flex flex-col items-center justify-center p-4 bg-white">
-                                <h3 className="text-xl font-black italic tracking-tighter mb-4 text-black">{col.brand}</h3>
-                                <img src={col.image} alt={col.name} className="w-[80%] object-contain group-hover:scale-105 transition-transform duration-500" />
-                            </div>
-                            <p className="mt-4 text-[13px] text-black font-light">{col.name}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                <p className="mt-4 text-[13px] text-black font-light">{col.name}</p>
+            </div>
+        ))}
+    </div>
+</section>
 
             <section className="py-16 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-100">
                 <div className="flex justify-between items-end mb-10">
@@ -606,7 +800,16 @@ function HomeView({ navigateTo }) {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-12 sm:gap-x-8">
                     {nikeShoes.map(shoe => <ShoeCard key={shoe.id} shoe={shoe} onClick={() => navigateTo('product', shoe)} />)}
                 </div>
+
+
+               
             </section>
+
+            <div>
+                <img src='../public/Sneaker/footer banner.png'/>
+            </div>
+           
+
         </div>
     );
 }
@@ -786,166 +989,6 @@ function ProductDetailView({ shoe, onBack, onAddToCart, onBuyNow }) {
 
  {/* Contact Section */}
 
-// function NormalCheckoutModal({ onClose, onSubmit, cart, totalAmount }) {
-//     const [isSubmitting, setIsSubmitting] = useState(false);
-    
-//     // Shopify ki tarah tax calculate karna (dikhane ke liye)
-//     const taxAmount = (totalAmount * 0.1525).toFixed(2);
-    
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         setIsSubmitting(true);
-//         const fd = new FormData(e.target);
-//         await onSubmit(Object.fromEntries(fd.entries()));
-//         setIsSubmitting(false); 
-//     };
-
-//     return (
-//         <div className="fixed inset-0 bg-white z-[60] flex flex-col md:flex-row overflow-y-auto animate-in slide-in-from-bottom-10 font-sans">
-//             <button onClick={onClose} className="absolute top-6 right-6 text-black hover:text-gray-500 z-50 bg-white/50 p-2 rounded-full"><X size={20} strokeWidth={1.5} /></button>
-            
-//             {/* Left Side: Form Section (Shopify Style) */}
-//             <div className="w-full md:w-[55%] p-6 md:p-12 lg:pl-[15%] lg:pr-12 bg-white flex flex-col min-h-screen border-r border-gray-200">
-//                 <div className="max-w-xl ml-auto w-full">
-                    
-                   
-//                     <div className="flex justify-between items-end mb-4 pt-4">
-//                         <h2 className="text-xl font-medium text-gray-900">Contact</h2>
-//                         {/* <a href="#" className="text-[13px] text-blue-600 hover:underline">S</a> */}
-//                     </div>
-                    
-//                     <div className="space-y-3 mb-8">
-//                         <div className="relative">
-//                             <input type="email" name="email" placeholder="Email or mobile phone number" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition text-[14px] placeholder-gray-500" />
-//                             <div className="absolute right-3 top-3.5 text-gray-400">
-//                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-//                             </div>
-//                         </div>
-//                         <div className="flex items-center gap-2">
-//                             <input type="checkbox" id="news" className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black" />
-//                             <label htmlFor="news" className="text-[14px] text-gray-700">Email me with news and offers</label>
-//                         </div>
-//                     </div>
-
-//                     {/* Delivery Section */}
-//                     <h2 className="text-xl font-medium text-gray-900 mb-4">Delivery</h2>
-//                     <form onSubmit={handleSubmit} className="space-y-3">
-                        
-//                         {/* Country Dropdown */}
-//                         <div className="relative border border-gray-300 rounded-md bg-white focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 transition">
-//                             <label className="absolute top-1.5 left-3 text-[11px] text-gray-500">Country/Region</label>
-//                             <select name="country" required defaultValue="" className="w-full px-3 pt-5 pb-2 bg-transparent outline-none text-[14px] appearance-none cursor-pointer">
-//                                 <option value="" disabled>Select your country</option>
-//                                 <option value="India">India</option>
-//                                 <option value="United States">United States</option>
-//                                 <option value="United Kingdom">United Kingdom</option>
-//                                 <option value="Canada">Canada</option>
-//                                 <option value="Australia">Australia</option>
-//                             </select>
-//                             <div className="absolute right-3 top-4 pointer-events-none text-gray-500">
-//                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-//                             </div>
-//                         </div>
-
-//                         {/* Name */}
-//                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-//                             <input type="text" name="fname" placeholder="First name" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition text-[14px] placeholder-gray-500" />
-//                             <input type="text" name="lname" placeholder="Last name" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition text-[14px] placeholder-gray-500" />
-//                         </div>
-
-//                         {/* Address */}
-//                         <div className="relative">
-//                             <input type="text" name="address" placeholder="Address" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition text-[14px] placeholder-gray-500 pr-10" />
-//                             <Search className="absolute right-3 top-3.5 text-gray-500" size={16} strokeWidth={2} />
-//                         </div>
-
-//                         {/* Landmark & PIN */}
-//                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-//                             <input type="text" name="landmark" placeholder="Landmark (e.g. near hospital)" className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition text-[14px] placeholder-gray-500" />
-//                             <input type="text" name="zip" placeholder="PIN code" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition text-[14px] placeholder-gray-500" />
-//                         </div>
-
-//                         {/* Phone */}
-//                         <div className="relative mt-2 mb-4">
-//                             <input type="tel" name="phone" placeholder="Phone" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none transition text-[14px] placeholder-gray-500" />
-//                             <div className="absolute right-3 top-3.5 text-gray-400">
-//                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-//                             </div>
-//                         </div>
-
-//                         <div className="flex items-center gap-2 mb-8 mt-4">
-//                             <input type="checkbox" id="saveinfo" className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black" />
-//                             <label htmlFor="saveinfo" className="text-[14px] text-gray-700">Save this information for next time</label>
-//                         </div>
-
-//                         <div className="pt-2 pb-12">
-//                             <button type="submit" disabled={isSubmitting} className={`w-full text-white py-4 rounded-md transition text-[15px] font-medium tracking-wide ${isSubmitting ? 'bg-gray-400' : 'bg-black hover:bg-gray-800 shadow-lg'}`}>
-//                                 {isSubmitting ? 'Processing...' : 'Confirm order'}
-//                             </button>
-//                         </div>
-//                     </form>
-//                 </div>
-//             </div>
-
-//             {/* Right Side: Order Summary (Shopify Style) */}
-//             <div className="w-full md:w-[45%] bg-white p-6 md:p-12 lg:pr-[15%] lg:pl-10 flex flex-col border-l border-gray-200">
-//                 <div className="max-w-md mr-auto w-full pt-4">
-                    
-//                     {/* Cart Items List */}
-//                     <div className="space-y-4 pb-6">
-//                         {cart.map(item => (
-//                             <div key={item.cartId} className="flex gap-4 items-center">
-//                                 {/* Product Image with exact border, background and badge */}
-//                                 <div className="h-[64px] w-[64px] bg-white border border-[#d9d9d9] rounded-xl flex-shrink-0 relative flex items-center justify-center p-1.5">
-//                                     <img src={item.image} alt={item.name} className="h-full w-full object-contain rounded-lg" />
-                                    
-//                                     {/* Black Quantity Badge exactly like screenshot */}
-//                                     <span className="absolute -top-2.5 -right-2.5 bg-[#323232] text-white text-[12px] font-medium w-[22px] h-[22px] flex items-center justify-center rounded-full z-10 shadow-sm">
-//                                         {item.quantity}
-//                                     </span>
-//                                 </div>
-//                                 <div className="flex-1 pr-2">
-//                                     <h4 className="text-[14px] text-[#333333] font-medium leading-snug">{item.name}</h4>
-//                                     <p className="text-[12px] text-[#737373] mt-0.5">{item.size}</p>
-//                                 </div>
-//                                 <div className="text-[14px] text-[#333333] font-medium">₹{(item.price * item.quantity).toFixed(2)}</div>
-//                             </div>
-//                         ))}
-//                     </div>
-
-//                     {/* Price Calculation Details */}
-//                     <div className="pt-6 space-y-3">
-//                         <div className="flex justify-between text-[14px] text-[#333333]">
-//                             <span>Subtotal</span>
-//                             <span className="font-medium">₹{totalAmount.toFixed(2)}</span>
-//                         </div>
-//                         <div className="flex justify-between text-[14px] text-[#333333]">
-//                             <span className="flex items-center gap-1.5">
-//                                 Shipping 
-//                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#737373]"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-//                             </span>
-//                             <span className="text-[#737373] text-[13px]">Enter shipping address</span>
-//                         </div>
-                        
-//                         <div className="flex justify-between items-center mt-6 pt-4 border-t border-[#d9d9d9]">
-//                             <div className="flex flex-col">
-//                                 <span className="font-semibold text-black text-[17px]">Total</span>
-//                                 <span className="text-[12px] text-[#737373] mt-0.5">Including ₹{taxAmount} in taxes</span>
-//                             </div>
-//                             <div className="flex items-center gap-2">
-//                                 <span className="text-[12px] text-[#737373]">INR</span>
-//                                 <span className="font-semibold text-black text-xl tracking-tight">₹{totalAmount.toFixed(2)}</span>
-//                             </div>
-//                         </div>
-//                     </div>
-                    
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-// About As
-
 function NormalCheckoutModal({ onClose, onSubmit, cart, totalAmount }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     
@@ -1069,36 +1112,101 @@ function NormalCheckoutModal({ onClose, onSubmit, cart, totalAmount }) {
 }
 
 
-
+// About US
 
 function AboutView() {
     return (
-        <div className="py-20 bg-white min-h-screen animate-in fade-in duration-500">
-            <div className="max-w-[800px] mx-auto px-4 text-center">
-                <h1 className="text-3xl font-semibold mb-8">About Zenvik</h1>
-                <img src="https://images.unsplash.com/photo-1552346154-21d32810baa3?q=80&w=1200&auto=format&fit=crop" alt="About Us" className="w-full h-[400px] object-cover mb-10 rounded-md" />
-                <p className="text-gray-600 text-[14px] leading-relaxed mb-6 font-light">Founded with a passion for streetwear and authentic footwear, our goal is to bring the rarest drops and the most comfortable classics straight to your doorstep.</p>
-                <p className="text-gray-600 text-[14px] leading-relaxed font-light">Every pair in our catalog is guaranteed 100% authentic. Step into greatness with us.</p>
+        <div className="max-w-4xl mx-auto px-6 py-12 md:py-20 font-sans text-[#333333] bg-white">
+            {/* Main Heading */}
+            <h1 className="text-3xl md:text-5xl font-bold text-center text-black mb-10 tracking-wide">
+                About Zenvikk
+            </h1>
+            
+            <div className="space-y-8 text-[15px] md:text-[17px] leading-relaxed">
+                
+                {/* Intro Section */}
+                <div>
+                    <h2 className="text-xl font-semibold text-black mb-3">
+                        Welcome to Zenvikk – Where Style Meets Comfort.
+                    </h2>
+                    <p>
+                        Based in the vibrant heart of Jaipur, <span className="font-semibold text-black">Zenvikk</span> was created with a single vision: to redefine everyday footwear by blending premium comfort with cutting-edge street style. We believe that the right pair of sneakers does more than just complete an outfit—it makes a statement, boosts your confidence, and keeps you moving effortlessly through your day.
+                    </p>
+                </div>
+
+                {/* Mission Section */}
+                <div>
+                    <h2 className="text-xl font-semibold text-black mb-3">Our Mission</h2>
+                    <p>
+                        We are passionate about bringing you high-quality, trendy footwear without the heavy price tag. Whether you are stepping out for a casual day, hitting the streets, or dressing up for an occasion, our carefully curated collection ensures you never have to compromise between looking good and feeling great.
+                    </p>
+                </div>
+
+                {/* Why Choose Us Section */}
+                <div>
+                    <h2 className="text-xl font-semibold text-black mb-4">Why Choose Zenvikk?</h2>
+                    <ul className="space-y-3 pl-1 md:pl-4">
+                        <li className="flex items-start">
+                            <span className="mr-3 text-black">✓</span>
+                            <p><strong className="text-black font-medium">Trendsetting Designs:</strong> Stay ahead of the curve with our modern and versatile sneaker collections.</p>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-black">✓</span>
+                            <p><strong className="text-black font-medium">All-Day Comfort:</strong> Engineered for the perfect fit, because premium style shouldn't hurt your feet.</p>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-black">✓</span>
+                            <p><strong className="text-black font-medium">Unbeatable Value:</strong> We believe top-tier quality and aesthetics should be accessible to everyone.</p>
+                        </li>
+                        <li className="flex items-start">
+                            <span className="mr-3 text-black">✓</span>
+                            <p><strong className="text-black font-medium">Customer-First Experience:</strong> From browsing our online store to unboxing your new favorite shoes at your doorstep, your satisfaction is our top priority.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                {/* Closing Statement */}
+                <div className="pt-6 border-t border-gray-200 text-center">
+                    <p className="font-medium text-[16px] md:text-[18px] text-black italic">
+                        "Step up your shoe game—explore our collection today and find the perfect pair that matches your vibe!"
+                    </p>
+                </div>
+
             </div>
         </div>
     );
 }
 
+
+// Contact information
+
+
 function ContactView() {
     return (
-        <div className="py-20 bg-white min-h-screen animate-in fade-in duration-500">
-            <div className="max-w-[600px] mx-auto px-4">
-                <h1 className="text-3xl font-semibold mb-8 text-center">Contact Us</h1>
-                <form onSubmit={(e) => { e.preventDefault(); alert("Message sent!"); e.target.reset(); }} className="space-y-4">
-                    <div><input type="text" placeholder="Name" required className="w-full px-4 py-3 bg-white border border-gray-300 rounded-md focus:border-black outline-none text-[13px] font-light" /></div>
-                    <div><input type="email" placeholder="Email" required className="w-full px-4 py-3 bg-white border border-gray-300 rounded-md focus:border-black outline-none text-[13px] font-light" /></div>
-                    <div><textarea rows="5" placeholder="Message" required className="w-full px-4 py-3 bg-white border border-gray-300 rounded-md focus:border-black outline-none text-[13px] font-light resize-none"></textarea></div>
-                    <button type="submit" className="bg-black text-white px-8 py-3 rounded-md text-[13px] w-full mt-2">Send Message</button>
-                </form>
+
+        <div className="max-w-3xl mx-auto px-6 py-12 md:py-20 font-sans bg-white text-center">
+            
+            {/* Heading */}
+            <h1 className="text-3xl md:text-4xl font-bold text-black mb-12 tracking-wide">
+                Contact information
+            </h1>
+
+            {/* Contact Details */}
+            <div className="space-y-6 text-[16px] md:text-[18px] text-[#333333] font-normal">
+                <p>Trade name : Zenvikk</p>
+                
+                <p>Email : vs592928@gmail.com</p>
+                
+                <p>Phone - +91 8875768157</p>
+                
+                <p>Physical address: Banskhoh, Bassi, Jaipur, Rajasthan</p>
             </div>
+            
         </div>
     );
 }
+
+
 
 function CartDrawer({ cart, onClose, updateQuantity, onCheckout, totalAmount }) {
     return (
