@@ -428,15 +428,10 @@ useEffect(() => {
                         </div>
 
                         {/* Logo (Left) */}
-                        {/* <div className="flex-1 md:flex-none flex items-center justify-center md:justify-start cursor-pointer" onClick={() => navigateTo('home')}>
-                            <div className="flex flex-col items-center">
-                                <span className="text-2xl sm:text-3xl font-serif italic tracking-tighter leading-none">Zv</span>
-                                <span className="text-[10px] tracking-[0.3em] font-light mt-1">ZENVIK</span>
-                            </div>
-                        </div> */}
+                       
 <div className="flex-1 md:flex-none flex items-center justify-center md:justify-start cursor-pointer" onClick={() => navigateTo('home')}><div className="flex flex-col items-center">
         <img 
-            src="../public/Sneaker/Gemini_logo-removebg-preview.png" 
+            src=" /Sneaker/Gemini_logo-removebg-preview.png" 
             alt="Logo" 
             className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-all" 
         />
@@ -590,22 +585,7 @@ useEffect(() => {
             {/* Yahan 'gap-6' add kiya hai taaki buttons ke beech accha space rahe */}
             <div className="fixed bottom-6 right-6 flex flex-col gap-6 z-50 items-center">
                 
-                {/* 
-                  NOTE: Maine yahan Call (WhatsApp) icon ko aapke kehne par hata (hide kar) diya hai. 
-                  Agar kabhi wapas chahiye ho, toh in {/* aur * /} ko hata dena.
-
-                <a 
-                    href="https://wa.me/918875768157" 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className="bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition duration-300"
-                    aria-label="Chat on WhatsApp"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-                    </svg>
-                </a>
-                */}
+                
                 {/* Floating Action Buttons (Right Side Bottom) */}
             <div className="fixed bottom-6 right-6 flex flex-col gap-5 z-50 items-center">
                 
@@ -806,7 +786,7 @@ function HomeView({ navigateTo }) {
             </section>
 
             <div>
-                <img src='../public/Sneaker/footer banner.png'/>
+                <img src='/Sneaker/footer banner.png'/>
             </div>
            
 
@@ -1001,7 +981,69 @@ function NormalCheckoutModal({ onClose, onSubmit, cart, totalAmount }) {
         await onSubmit(Object.fromEntries(fd.entries()));
         setIsSubmitting(false); 
         console.log(FormData)
+
+
+        // React component ke andar aapka form submit function
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // 🚨 Normal JSON ( { customerName: "Vikash" } ) MAT bhejein
+    // Naya tarika: FormData banayein
+    const formData = new FormData();
+    formData.append("customerName", customerName);
+    formData.append("phone", phone);
+    formData.append("street", street);
+    formData.append("city", city);
+    formData.append("state", state);
+    formData.append("pincode", pincode);
+    formData.append("quantity", quantity);
+    
+    // imageFile wahi naam hai jo backend me upload.single("imageFile") me hai
+    // yahan 'selectedFile' aapke <input type="file"> ka state hona chahiye
+    formData.append("imageFile", selectedFile); 
+
+    try {
+        const response = await axios.post("http://localhost:5003/api/orders", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data", // 👈 Ye likhna zaruri hai
+            },
+        });
+        console.log("Order Success:", response.data);
+    } catch (error) {
+        console.error("Order Fail:", error);
+    }
+};
     };
+
+    // handleOrderSubmit
+
+    const handleOrderSubmit = async (e) => {
+    e.preventDefault();
+
+    // Normal JSON data banayein
+    const orderData = {
+        customerName: customerName,
+        phone: phone,
+        address: {
+            street: street,
+            city: city,
+            state: state,
+            pincode: pincode
+        },
+        quantity: quantity,
+        // Yahan par aap apne selected joote ki photo ka naam bhej rahe hain
+        selectedImage: "/Sneaker/sn-1-5.jpg" // Ya jo bhi user ne select kiya hai
+    };
+
+    try {
+        // Normal POST request
+        const response = await axios.post("http://localhost:5003/api/orders", orderData);
+        console.log("Order Successful:", response.data);
+        alert("Order aur Photo dono chale gaye!");
+    } catch (error) {
+        console.error("Order Fail:", error);
+    }
+};
 
     return (
         <div className="fixed inset-0 bg-white z-[60] flex flex-col md:flex-row overflow-y-auto animate-in slide-in-from-bottom-10 font-sans">
@@ -1184,25 +1226,39 @@ function AboutView() {
 function ContactView() {
     return (
 
-        <div className="max-w-3xl mx-auto px-6 py-12 md:py-20 font-sans bg-white text-center">
-            
-            {/* Heading */}
-            <h1 className="text-3xl md:text-4xl font-bold text-black mb-12 tracking-wide">
-                Contact information
-            </h1>
-
-            {/* Contact Details */}
-            <div className="space-y-6 text-[16px] md:text-[18px] text-[#333333] font-normal">
-                <p>Trade name : Zenvikk</p>
-                
-                <p>Email : vs592928@gmail.com</p>
-                
-                <p>Phone - +91 8875768157</p>
-                
-                <p>Physical address: Banskhoh, Bassi, Jaipur, Rajasthan</p>
-            </div>
-            
+<div className="max-w-4xl mx-auto px-4 py-16 bg-white">
+    <div className="text-center mb-10">
+        <h1 className="text-2xl md:text-3xl font-bold text-black tracking-wide">Contact Information</h1>
+    </div>
+    
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
+        
+        {/* Box 1 */}
+        <div className="p-6 bg-[#f9f9f9] border border-gray-100 rounded-xl hover:border-black transition duration-300">
+            <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-bold mb-2">Trade Name</p>
+            <p className="text-[15px] md:text-[16px] text-black font-semibold">Zenvikk</p>
         </div>
+        
+        {/* Box 2 */}
+        <div className="p-6 bg-[#f9f9f9] border border-gray-100 rounded-xl hover:border-black transition duration-300">
+            <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-bold mb-2">Email Support</p>
+            <a href="mailto:vs592928@gmail.com" className="text-[15px] md:text-[16px] text-black font-semibold hover:underline">vs592928@gmail.com</a>
+        </div>
+        
+        {/* Box 3 */}
+        <div className="p-6 bg-[#f9f9f9] border border-gray-100 rounded-xl hover:border-black transition duration-300">
+            <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-bold mb-2">Phone Number</p>
+            <a href="tel:+918875768157" className="text-[15px] md:text-[16px] text-black font-semibold hover:underline">+91 8875768157</a>
+        </div>
+        
+        {/* Box 4 */}
+        <div className="p-6 bg-[#f9f9f9] border border-gray-100 rounded-xl hover:border-black transition duration-300">
+            <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-bold mb-2">Physical Address</p>
+            <p className="text-[15px] md:text-[16px] text-black font-semibold leading-relaxed">Banskhoh, Bassi, Jaipur, Rajasthan</p>
+        </div>
+        
+    </div>
+</div>
     );
 }
 
