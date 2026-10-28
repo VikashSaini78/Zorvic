@@ -29,7 +29,7 @@ export default function Header({
                     <div className="flex-1 md:flex-none flex items-center justify-center md:justify-start cursor-pointer" onClick={() => navigateTo('home')}>
                         <div className="flex flex-col items-center">
                             <img 
-                                src="/Sneaker/Gemini_logo-removebg-preview.png" 
+                                src="/Sneaker/logo logo.png" 
                                 alt="Logo" 
                                 className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-all" 
                             />

@@ -7,8 +7,8 @@ export default function AdminRoute({ children }) {
 
     // Agar admin nahi hai, toh seedha Home page ("/") par bhej do
     if (!isAdmin) {
-        alert("Access Denied! Sirf Admin ye data dekh sakta hai.");
-        return <Navigate to="/" replace />;
+        alert("Access Denied!.");
+        return <Navigate to="/" replace />; 
     }
 
     // Agar admin hai, toh data wala page dikha do

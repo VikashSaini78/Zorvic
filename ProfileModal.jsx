@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // axios ki abhi zaroorat nahi hai agar hum direct code me password daal rahe hain
 import { useNavigate } from 'react-router-dom';
 
@@ -17,13 +19,18 @@ export default function ProfileModal({ onClose }) {
 
         // Check kar rahe hain ki user ne yahi email/password dala hai ya nahi
         if (email === adminEmail && password === adminPassword) {
-            alert("Admin Login Successful!");
+           toast.success("Admin Login Successful!", {
+                position: "top-center",
+                autoClose: 2000, // 2 second me band hoga
+            });
             localStorage.setItem("isAdmin", "true"); // Browser me nishani save ki
             onClose(); // Modal band kiya
             navigate("/admin"); // Admin page par bhej diya
         } else {
-            // Agar galat dala toh error
-            alert("Galat Email ya Password! Sirf Admin allowed hai.");
+           toast.error("Galat Email or Password!", {
+                position: "top-center",
+                autoClose: 3000,
+            });
         }
     };
 

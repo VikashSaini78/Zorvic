@@ -19,6 +19,10 @@ import ProfileModal from '../ProfileModal';
 
 import AdminRoute from '../AdminRoute';
 import Admin from '../Admin'; 
+import PrivacyPolicy from '../PrivacyPolicy';
+import RefundPolicy from '../RefundPolicy';
+import ShippingPolicy from '../ShippingPolicy';
+import TermsOfService from '../TermsOfService';
 
 function AppContent() {
     const navigate = useNavigate();
@@ -111,11 +115,23 @@ function AppContent() {
                     <Route path="/catalog" element={<CatalogView navigateTo={navigateTo} activeFilter={activeFilter} setActiveFilter={setActiveFilter} />} />
                     <Route path="/about" element={<AboutView />} />
                     <Route path="/contact" element={<ContactView />} />
+                    <Route path="/refund-policy" element={<RefundPolicy/>} />
+                    <Route path="/shipping-policy" element={<ShippingPolicy/>} />
+                    <Route path="/terms-of-service" element={<TermsOfService/>} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
+                    {/* <Route path="/contact" element={<TermsOfService/>} /> */}
+
+
+                    
+                    
+                    
+                    
                     
                     {/* Admin Route ko bhi Routes ke andar daal diya gaya hai */}
                     <Route path="/admin" element={
                         <AdminRoute>
                             <Admin />
+                            
                         </AdminRoute>
                     } />
 

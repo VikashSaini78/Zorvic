@@ -20,6 +20,7 @@ export const shoesData = [
     { id: 119, brand: "Adidas", name: "Adizero EVO SL Shoes", price: 1999.00, image: "/Sneaker/Adizero/Adizero 3-1.webp", gallery: ["/Sneaker/Adizero/Adizero 3-1.webp", "/Sneaker/Adizero/Adizero 3-2.webp", "/Sneaker/Adizero/Adizero 3-3.webp"], badge: "" },
     { id: 120, brand: "Adidas", name: "Adizero EVO SL Shoes blue", price: 1999.00, image: "/Sneaker/Adizero/Adizero 4-1.webp", gallery: ["/Sneaker/Adizero/Adizero 4-1.webp", "/Sneaker/Adizero/Adizero 4-3.webp"], badge: "" },
     { id: 121, brand: "Jordan", name: "Air Jordan 1 Mid black", price: 1999.00, image: "/Sneaker/Adizero/Jordan 1-1.webp", gallery: ["/Sneaker/Adizero/Jordan 1-1.webp", "/Sneaker/Adizero/Jordan 1-2.webp", "/Sneaker/Adizero/Jordan 1-3.webp", "/Sneaker/Adizero/Jordan 1-4.webp", "/Sneaker/Adizero/Jordan 1-5.webp"], badge: "" }
+    
 ];
 
 export const collectionsData = [

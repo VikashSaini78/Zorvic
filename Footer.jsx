@@ -30,19 +30,20 @@ export default function Footer() {
                         <h3 className="font-bold text-sm uppercase tracking-wide mb-6">Customer Service</h3>
                         <div className="space-y-3 text-[14px]">
                             <p>Phone: +91 8875768157</p>
-                            <p>E-mail: vs592928@gmail.com</p>
+                            <p>E-mail: zevoenterprises@gmail.com</p>
+                            <p>Your everyday sneaker destination. Premium quality you can feel, all-day comfort, and street-ready style that makes you stand out</p>
                         </div>
                     </div>
                     <div>
                         <h3 className="font-bold text-sm uppercase tracking-wide mb-6">Company</h3>
                         <div className="space-y-3 text-[14px]">
-                            <p>Zenvikk</p>
+                            <p>Zorvic</p>
                         </div>
                     </div>
                     <div>
                         <h3 className="font-bold text-sm uppercase tracking-wide mb-6">Our Address</h3>
                         <div className="space-y-4 text-[14px]">
-                            <p className="leading-relaxed">Banskhoh, Bassi, Jaipur, Rajasthan</p>
+                            <p className="leading-relaxed">Jaipur, Rajasthan</p>
                             <div className="pt-6">
                                 <form className="relative border-b border-gray-400 pb-2">
                                     <input 

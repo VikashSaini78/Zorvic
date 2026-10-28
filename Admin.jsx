@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 export default function Admin() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    
+    // Pagination ke liye new states
+    const [currentPage, setCurrentPage] = useState(1);
+    const ordersPerPage = 20;
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,6 +39,20 @@ export default function Admin() {
         return new Date(dateString).toLocaleDateString('en-IN', options);
     };
 
+    // Pagination Logic
+    const indexOfLastOrder = currentPage * ordersPerPage;
+    const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+    const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+    const totalPages = Math.ceil(orders.length / ordersPerPage);
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    };
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -49,7 +67,10 @@ export default function Admin() {
                 
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Order Detailed Table</h1>
+                        {/* Title ke aage Total orders show kiya gaya hai */}
+                        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+                            Order Detailed Table <span className="text-blue-600 text-2xl">({orders.length})</span>
+                        </h1>
                         <p className="text-sm text-gray-500 mt-1">Har field ke liye alag column (Bina text kate)</p>
                     </div>
                     <button 
@@ -57,12 +78,11 @@ export default function Admin() {
                         className="bg-white border border-gray-200 text-red-600 px-6 py-2.5 rounded-lg font-medium hover:bg-red-50 transition-colors shadow-sm"
                     >
                         Logout
-                    </button>
+                    </button> 
                 </div>
 
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div className="overflow-x-auto">
-                        {/* Table ki minimum width aur badha di taaki 11 columns fit aa sakein */}
                         <table className="w-full text-left border-collapse min-w-[1400px]">
                             <thead>
                                 <tr className="bg-gray-100 border-b border-gray-200 text-[12px] uppercase tracking-wider text-gray-600 font-bold whitespace-nowrap">
@@ -80,22 +100,21 @@ export default function Admin() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
-                                {orders.length === 0 ? (
+                                {currentOrders.length === 0 ? (
                                     <tr>
                                         <td colSpan="11" className="text-center py-12 text-gray-400">
                                             Data nahi mila.
                                         </td>
                                     </tr>
                                 ) : (
-                                    orders.map((order, index) => (
+                                    // Yahan `orders.map` ki jagah `currentOrders.map` use kiya hai (20 items ke liye)
+                                    currentOrders.map((order, index) => (
                                         <tr key={index} className="hover:bg-gray-50 transition-colors text-[13px] text-gray-800">
                                             
-                                            {/* 1. Order Date */}
                                             <td className="px-5 py-4 whitespace-nowrap text-gray-500">
                                                 {formatDate(order.createdAt)}
                                             </td>
 
-                                            {/* 2. Product Photo */}
                                             <td className="px-5 py-4">
                                                 <div className="w-14 h-14 bg-white border border-gray-200 rounded-lg p-1 flex items-center justify-center">
                                                     {order.selectedImage ? (
@@ -106,47 +125,38 @@ export default function Admin() {
                                                 </div>
                                             </td>
 
-                                            {/* 3. Name */}
                                             <td className="px-5 py-4 font-semibold whitespace-normal break-words min-w-[120px]">
                                                 {order.customerName}
                                             </td>
 
-                                            {/* 4. Address (Ab katega nahi, agli line me aayega) */}
                                             <td className="px-5 py-4 whitespace-normal break-words min-w-[200px]">
                                                 {order.address?.street || 'N/A'}
                                             </td>
 
-                                            {/* 5. Landmark (Naya Column) */}
                                             <td className="px-5 py-4 whitespace-normal break-words min-w-[150px]">
                                                 {order.address?.landmark || 'N/A'}
                                             </td>
 
-                                            {/* 6. City */}
                                             <td className="px-5 py-4 whitespace-nowrap">
                                                 {order.address?.city || 'N/A'}
                                             </td>
 
-                                            {/* 7. State */}
                                             <td className="px-5 py-4 whitespace-nowrap">
                                                 {order.address?.state || 'N/A'}
                                             </td>
 
-                                            {/* 8. Pincode */}
                                             <td className="px-5 py-4 font-medium whitespace-nowrap">
                                                 {order.address?.pincode || 'N/A'}
                                             </td>
 
-                                            {/* 9. Shoe Size */}
                                             <td className="px-5 py-4 text-center font-bold">
                                                 {order.size || '-'}
                                             </td>
 
-                                            {/* 10. Product Quantity */}
                                             <td className="px-5 py-4 text-center font-bold text-blue-600">
                                                 {order.quantity || 1}
                                             </td>
 
-                                            {/* 11. Product Price */}
                                             <td className="px-5 py-4 text-right font-bold text-green-600 whitespace-nowrap text-[15px]">
                                                 ₹{order.price ? order.price.toFixed(2) : "0.00"}
                                             </td>
@@ -157,10 +167,45 @@ export default function Admin() {
                             </tbody>
                         </table>
                     </div>
+
+                    {/* Pagination Controls */}
+                    {orders.length > 0 && (
+                        <div className="flex flex-col sm:flex-row justify-between items-center px-6 py-4 bg-gray-50 border-t border-gray-200 gap-4">
+                            <div className="text-sm text-gray-600">
+                                Showing <span className="font-semibold text-gray-900">{indexOfFirstOrder + 1}</span> to <span className="font-semibold text-gray-900">{Math.min(indexOfLastOrder, orders.length)}</span> of <span className="font-semibold text-gray-900">{orders.length}</span> Orders
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <button
+                                    onClick={handlePrevPage}
+                                    disabled={currentPage === 1}
+                                    className={`px-4 py-2 text-sm font-medium rounded-md border ${
+                                        currentPage === 1 
+                                        ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' 
+                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                                    }`}
+                                >
+                                    Previous
+                                </button>
+                                <span className="text-sm text-gray-600 px-4">
+                                    Page {currentPage} of {totalPages}
+                                </span>
+                                <button
+                                    onClick={handleNextPage}
+                                    disabled={currentPage === totalPages}
+                                    className={`px-4 py-2 text-sm font-medium rounded-md border ${
+                                        currentPage === totalPages 
+                                        ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' 
+                                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                                    }`}
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
                 </div>
-                
             </div>
         </div>
     );
 }
-
