@@ -15,19 +15,103 @@ export const shoesData = [
     { id: 108, brand: "Adidas", name: "Adidas Samba green", price: 1999.00, image: "/Sneaker/snc/Ad 6-1.webp", gallery: ["/Sneaker/snc/Ad 6-1.webp", "/Sneaker/snc/Ad 6-2.webp", "/Sneaker/snc/Ad 6-3.webp", "/Sneaker/snc/Ad 6-4.webp"], badge: "" },
     { id: 115, brand: "Adidas", name: "Adidas Superstar grey", price: 1999.00, image: "/Sneaker/snc/Ad 7-1.webp", gallery: ["/Sneaker/snc/Ad 7-1.webp", "/Sneaker/snc/Ad 7-2.webp", "/Sneaker/snc/Ad 7-3.webp", "/Sneaker/snc/Ad 7-4.jpg", "/Sneaker/snc/Ad 7-5.webp"], badge: "" },
     { id: 116, brand: "Adidas", name: "Adidas Samba", price: 1999.00, image: "/Sneaker/snc/Ad 8-1.webp", gallery: ["/Sneaker/snc/Ad 8-1.webp", "/Sneaker/snc/Ad 8-2.webp", "/Sneaker/snc/Ad 8-3.jpg", "/Sneaker/snc/Ad 8-4.webp", "/Sneaker/snc/Ad 8-5.webp", "/Sneaker/snc/Ad 8-6.webp"], badge: "" },
-    { id: 117, brand: "Adidas", name: "Adizero EVO SL Shoes", price: 1999.00, image: "/Sneaker/Adizero/Adizero 1-1.webp", gallery: ["/Sneaker/Adizero/Adizero 1-1.webp", "/Sneaker/Adizero/Adizero 1-2.webp", "/Sneaker/Adizero/Adizero 1-3.webp", "/Sneaker/Adizero/Adizero 1-4.webp"], badge: "" },
-    { id: 118, brand: "Adidas", name: "Adizero EVO SL Shoes", price: 1999.00, image: "/Sneaker/Adizero/Adizero 2-1.webp", gallery: ["/Sneaker/Adizero/Adizero 2-1.webp", "/Sneaker/Adizero/Adizero 2-2.webp", "/Sneaker/Adizero/Adizero 2-3.webp", "/Sneaker/Adizero/Adizero 2-4.webp"], badge: "" },
-    { id: 119, brand: "Adidas", name: "Adizero EVO SL Shoes", price: 1999.00, image: "/Sneaker/Adizero/Adizero 3-1.webp", gallery: ["/Sneaker/Adizero/Adizero 3-1.webp", "/Sneaker/Adizero/Adizero 3-2.webp", "/Sneaker/Adizero/Adizero 3-3.webp"], badge: "" },
-    { id: 120, brand: "Adidas", name: "Adizero EVO SL Shoes blue", price: 1999.00, image: "/Sneaker/Adizero/Adizero 4-1.webp", gallery: ["/Sneaker/Adizero/Adizero 4-1.webp", "/Sneaker/Adizero/Adizero 4-3.webp"], badge: "" },
-    { id: 121, brand: "Jordan", name: "Air Jordan 1 Mid black", price: 1999.00, image: "/Sneaker/Adizero/Jordan 1-1.webp", gallery: ["/Sneaker/Adizero/Jordan 1-1.webp", "/Sneaker/Adizero/Jordan 1-2.webp", "/Sneaker/Adizero/Jordan 1-3.webp", "/Sneaker/Adizero/Jordan 1-4.webp", "/Sneaker/Adizero/Jordan 1-5.webp"], badge: "" }
+     // boot 
+     { id: 119, brand: "Boot", name: "Timberland boot", price: 1299.00, image: "/public/Sneaker/boot 2.webp", gallery: ["/public/Sneaker/boot 1.webp", "/public/Sneaker/boot 3.webp",], badge: "" },
+     { id: 122, brand: "Boot", name: "Timberland boot", price: 1299.00, image: "/public/Sneaker/boot 1-1.webp", gallery: ["/public/Sneaker/boot 1-2.webp", "/public/Sneaker/boot 1-3.webp", "public/Sneaker/boot 1-4.webp"], badge: "" },
+     { id: 123, brand: "Boot", name: "Timberland boot black", price: 1299.00, image: "/public/Sneaker/boot 2-1.webp", gallery: ["/public/Sneaker/boot 2-2.webp", "/public/Sneaker/boot 2-3.webp", "public/Sneaker/boot 2-4.webp"], badge: "" },
+    //  TRAVIS shoes 
+     { id: 124, brand: "Nike", name: "Fragment Design x Travis Scott x Air Jordan 1 Retro Low OG SP", price: 1199.00, image: "/public/Sneaker/Travel Nike -1.webp", gallery: ["/public/Sneaker/Travel Nike -2.webp", "/public/Sneaker/Travel Nike -3.webp", "/public/Sneaker/Travel Nike -4.webp","/public/Sneaker/Travel Nike -5.webp", "/public/Sneaker/Travel Nike -6.webp", ], badge: "" },
+     { id: 125, brand: "Nike", name: "Air Jordan 1 Low Travis Scott Canary Womens", price: 1199.00, image: "/public/Sneaker/Travel Nike 1-1.webp", gallery: ["/public/Sneaker/Travel Nike 1-2.webp", "/public/Sneaker/Travel Nike 1-3.webp", "/public/Sneaker/Travel Nike 1-4.webp"], badge: "" },
+     { id: 126, brand: "Nike", name: "Nike Jordan Travis Scott x Air Jordan 1 Low OG SP Black Phantom", price: 1199.00, image: "/public/Sneaker/Travel Nike 2-1.webp", gallery: ["/public/Sneaker/Travel Nike 2-2.webp", "/public/Sneaker/Travel Nike 2-3.webp", "/public/Sneaker/Travel Nike 2-4.webp","/public/Sneaker/Travel Nike 2-5.webp","/public/Sneaker/Travel Nike 2-6.webp"], badge: "" },
+     { id: 126, brand: "Nike", name: "Air Jordan 1 Low Travis Scott OG SP 'Velvet Brown", price: 1199.00, image: "/public/Sneaker/Travel Nike 3-3.webp", gallery: ["/public/Sneaker/Travel Nike 3-2.webp", "/public/Sneaker/Travel Nike 3-1.webp", "/public/Sneaker/Travel Nike 3-4.webp","/public/Sneaker/Travel Nike 3-5.webp"], badge: "" },
+     { id: 127, brand: "Nike", name: "Nike Air Jordan 1 Retro Low OG SP Travis Scott", price: 1199.00, image: "/public/Sneaker/Travel Nike 4-1.webp", gallery: ["/public/Sneaker/Travel Nike 4-2.webp", "/public/Sneaker/Travel Nike 4-3.webp", "/public/Sneaker/Travel Nike 4-4.webp","/public/Sneaker/Travel Nike 4-5.webp",], badge: "" },
     
+    //  nike
+
+     { id: 128, brand: "Nike", name: "Nike Dunk Low x Stüssy custom colorway in Black/Purple", price: 1199.00, image: "/public/Sneaker/Travel Nike 5-1.webp", gallery: ["/public/Sneaker/Travel Nike 5-2.webp","/public/Sneaker/Travel Nike 5-5.webp", "/public/Sneaker/Travel Nike 5-6.webp","/public/Sneaker/Travel Nike 5-7.webp","/public/Sneaker/Travel Nike 5-8.webp",  "/public/Sneaker/Travel Nike 5-4.webp", "/public/Sneaker/Travel Nike 5-3.webp" ], badge: "" },
+     { id: 129, brand: "Nike", name: "Nike Dunk Low x Stüssy custom colorway in Black/green", price: 1199.00, image: "/public/Sneaker/Travel Nike 6-1.webp", gallery: ["/public/Sneaker/Travel Nike 6-2.webp", "/public/Sneaker/Travel Nike 6-3.webp", "/public/Sneaker/Travel Nike 6-4.webp", "/public/Sneaker/Travel Nike 6-5.webp", "/public/Sneaker/Travel Nike 6-6.webp", "/public/Sneaker/Travel Nike 6-7.webp"], badge: "" },
+     { id: 130, brand: "Nike", name: "Nike SB Dunk low staple NYC pigeon", price: 1199.00, image: "/public/Sneaker/Travel Nike 7-1.webp", gallery: ["/public/Sneaker/Travel Nike 7-2.webp", "/public/Sneaker/Travel Nike 7-3.webp", "/public/Sneaker/Travel Nike 7-4.webp", "/public/Sneaker/Travel Nike 7-5.webp", "/public/Sneaker/Travel Nike 7-6.webp", "/public/Sneaker/Travel Nike 7-7.webp"], badge: "" },
+     { id: 131, brand: "Nike", name: "Nike SB Dunk Low Ghost Rider", price: 1199.00, image: "/public/Sneaker/Travel Nike 8-1.webp", gallery: ["/public/Sneaker/Travel Nike 8-2.webp", "/public/Sneaker/Travel Nike 8-3.webp", "/public/Sneaker/Travel Nike 8-4.webp","/public/Sneaker/Travel Nike 8-5.webp","/public/Sneaker/Travel Nike 8-6.webp"], badge: "" },
+     { id: 132, brand: "Nike", name: "Nike SB Dunk Low Yuto Horigome", price: 1199.00, image: "/public/Sneaker/Travel Nike 9-1.webp", gallery: ["/public/Sneaker/Travel Nike 9-2.webp", "/public/Sneaker/Travel Nike 9-3.webp", "/public/Sneaker/Travel Nike 9-4.webp","/public/Sneaker/Travel Nike 9-5.webp","/public/Sneaker/Travel Nike 9-6.webp","/public/Sneaker/Travel Nike 9-7.webp"], badge: "" },
+     { id: 133, brand: "Nike", name: "Nike SB Dunk Low Travis Scott", price: 1199.00, image: "/public/Sneaker/Travel Nike 10-1.webp", gallery: ["/public/Sneaker/Travel Nike 10-2.webp", "/public/Sneaker/Travel Nike 10-3.webp", "/public/Sneaker/Travel Nike 10-4.webp","/public/Sneaker/Travel Nike 10-5.webp",], badge: "" },
+     { id: 134, brand: "Nike", name: "SB Dunk Low TRD QS Black Pigeon", price: 1199.00, image: "/public/Sneaker/Travel Nike 11-1.webp", gallery: ["/public/Sneaker/Travel Nike 11-2.webp", "/public/Sneaker/Travel Nike 11-3.webp",], badge: "" },
+     { id: 135, brand: "Nike", name: "Dior x Air Jordan 1 Retro", price: 1199.00, image: "/public/Sneaker/Travel Nike 12-1.webp", gallery: ["/public/Sneaker/Travel Nike 12-2.webp", "/public/Sneaker/Travel Nike 12-3.webp", "/public/Sneaker/Travel Nike 12-4.webp"], badge: "" },
+     { id: 136, brand: "Nike", name: "Nike low dunks", price: 1199.00, image: "/public/Sneaker/Travel Nike 13-1.webp", gallery: ["/public/Sneaker/Travel Nike 13-2.webp", "/public/Sneaker/Travel Nike 13-3.webp", "/public/Sneaker/Travel Nike 13-4.webp"], badge: "" },
+     { id: 138, brand: "Nike", name: "Nike SB Dunk Low Concepts Green Lobster", price: 2999.00, image: "/public/Sneaker/Nike Sb 1-1.webp", gallery: ["/public/Sneaker/Nike Sb 1-2.webp", "/public/Sneaker/Nike Sb 1-3.webp", "/public/Sneaker/Nike Sb 1-4.webp","/public/Sneaker/Nike Sb 1-5.webp","/public/Sneaker/Nike Sb 1-6.webp"], badge: "" },
+     { id: 137, brand: "Nike", name: "Nike SB Dunk Low Futura Laboratories Bleached Aqua", price: 2999.00, image: "/public/Sneaker/Nike Sb 1.webp", gallery: ["/public/Sneaker/Nike Sb 2.webp", "/public/Sneaker/Nike Sb 3.webp", "/public/Sneaker/Nike Sb 4.webp","/public/Sneaker/Nike Sb 5.webp",], badge: "" },
+     { id: 140, brand: "Nike", name: "Nike SB Dunk Low Premium  Yellow Lobster", price: 2999.00, image: "/public/Sneaker/Nike Sb 2-1.webp", gallery: ["/public/Sneaker/Nike Sb 2-2.webp", "/public/Sneaker/Nike Sb 2-3.webp", "/public/Sneaker/Nike Sb 2-4.webp","/public/Sneaker/Nike Sb 2-5.webp","/public/Sneaker/Nike Sb 2-6.webp","/public/Sneaker/Nike Sb 2-7.webp"], badge: "" },
+     { id: 139, brand: "Nike", name: "Nike SB Dunk Low The Powerpuff Girls", price: 2999.00, image: "/public/Sneaker/Nike Sb 3-1.webp", gallery: ["/public/Sneaker/Nike Sb 3-2.webp", "/public/Sneaker/Nike Sb 3-3.webp", "/public/Sneaker/Nike Sb 3-4.webp","/public/Sneaker/Nike Sb 3-5.webp"], badge: "" },
+     { id: 141, brand: "Nike", name: "Nike SB Dunk Low Ben & Jerry's Chunky Dunky", price: 2999.00, image: "/public/Sneaker/Nike Sb 4-1.webp", gallery: ["/public/Sneaker/Nike Sb 4-2.webp", "/public/Sneaker/Nike Sb 4-3.webp", "/public/Sneaker/Nike Sb 4-4.webp",], badge: "" },
+ 
+     // nike AIR FORCE 
+    { id: 141, brand: "Nike", name: "Nike Air force 1", price: 2999.00, image: "/Sneaker/Adizero/nike air force.webp", gallery: ["/Sneaker/Adizero/nike air force 2.webp", "/Sneaker/Adizero/nike air force 3.webp","/Sneaker/Adizero/nike air force 4.webp","/Sneaker/Adizero/nike air force 5.webp","/Sneaker/Adizero/nike air force 6.webp","/Sneaker/Adizero/nike air force 7.webp","/Sneaker/Adizero/nike air force 8.webp",], badge: "" },
+    { id: 141, brand: "Nike", name: "Nike F1 Louis Vuitton edition", price: 2999.00, image: "/Sneaker/Adizero/nike air force 1-1.webp", gallery: ["/Sneaker/Adizero/nike air force 1-2.webp", "/Sneaker/Adizero/nike air force 1-3.webp","/Sneaker/Adizero/nike air force 1-4.webp","/Sneaker/Adizero/nike air force 1-5.webp","/Sneaker/Adizero/nike air force 1-6.webp",], badge: "" },
+    { id: 141, brand: "Nike", name: "Nike Off-White Air Force 1 '07 LX Women's", price: 2999.00, image: "/Sneaker/Adizero/nike air force 7-1.webp", gallery: ["/Sneaker/Adizero/nike air force 7-2.webp", "/Sneaker/Adizero/nike air force 7-3.webp","/Sneaker/Adizero/nike air force 7-4.webp","/Sneaker/Adizero/nike air force 7-5.webp","/Sneaker/Adizero/nike air force 7-6.webp",], badge: "" },
+    { id: 141, brand: "Nike", name: "Nike Air force", price: 2999.00, image: "/Sneaker/Adizero/nike air force 2-1.webp", gallery: ["/Sneaker/Adizero/nike air force 2-2.webp", "/Sneaker/Adizero/nike air force 2-3.webp","/Sneaker/Adizero/nike air force 2-4.webp","/Sneaker/Adizero/nike air force 2-5.webp",], badge: "" },
+    { id: 141, brand: "Nike", name: "Nike air force supreme addition", price: 2999.00, image: "/Sneaker/Adizero/nike air force 3-1.webp", gallery: ["/Sneaker/Adizero/nike air force 3-2.webp", "/Sneaker/Adizero/nike air force 3-3.webp","/Sneaker/Adizero/nike air force 3-4.webp","/Sneaker/Adizero/nike air force 3-5.webp",], badge: "" },
+    { id: 141, brand: "Nike", name: "Nike Air force", price: 2999.00, image: "/Sneaker/Adizero/nike air force 4-1.webp", gallery: ["/Sneaker/Adizero/nike air force 4-2.webp", "/Sneaker/Adizero/nike air force 4-3.webp","/Sneaker/Adizero/nike air force 4-2.webp"], badge: "" },
+    { id: 141, brand: "Nike", name: "Nike limited F1", price: 2999.00, image: "/Sneaker/Adizero/nike air force 5-1.webp", gallery: ["/Sneaker/Adizero/nike air force 5-2.webp", "/Sneaker/Adizero/nike air force 5-3.webp","/Sneaker/Adizero/nike air force 5-4.webp","/Sneaker/Adizero/nike air force 5-5.webp",], badge: "" },
+    { id: 141, brand: "Nike", name: "Nike Air force", price: 2999.00, image: "/Sneaker/Adizero/nike air force 6-1.webp", gallery: ["/Sneaker/Adizero/nike air force 6-2.webp", "/Sneaker/Adizero/nike air force 6-3.webp","/Sneaker/Adizero/nike air force 5-1.webp",], badge: "" },
+
+
+    //  Retro 
+
+ { id: 142, brand: "ROTRO", name: "Air Jordan 4 Retro red", price: 1999.00, image: "/public/Sneaker/Retro 1.webp", gallery: ["/public/Sneaker/Retro 2.webp", "/public/Sneaker/Retro 3.webp",], badge: "" },
+ { id: 143, brand: "ROTRO", name: "Nike Air Jordan 4 Retro  Fire Red", price: 1999.00, image: "/public/Sneaker/Retro 1-1.webp", gallery: ["/public/Sneaker/Retro 1-2.webp", "/public/Sneaker/Retro 1-3.webp", "/public/Sneaker/Retro 1-4.webp"], badge: "" },
+ { id: 144, brand: "ROTRO", name: "Air Jordan 4 Retro blue", price: 1999.00, image: "/public/Sneaker/Retro 3-1.webp", gallery: ["/public/Sneaker/Retro 3-2.webp", "/public/Sneaker/Retro 3-3.webp", "/public/Sneaker/Retro 3-4.webp", "/public/Sneaker/Retro 3-5.webp"], badge: "" },
+ { id: 145, brand: "ROTRO", name: "Air Jordan 4 Retro black", price: 1999.00, image: "/public/Sneaker/Retro 2-1.webp", gallery: ["/public/Sneaker/Retro 2-2.webp", "/public/Sneaker/Retro 2-3.webp", "/public/Sneaker/Retro 2-4.webp", "/public/Sneaker/Retro 2-5.webp"], badge: "" },
+
+//  jordan 
+
+{ id: 146, brand: "Jordan", name: "Air Jordan 1 Mid red", price: 1999.00, image: "/Sneaker/Adizero/Jordan 2-1.webp", gallery: ["/Sneaker/Adizero/Jordan 2-2.webp", "/Sneaker/Adizero/Jordan 2-3.webp", "/Sneaker/Adizero/Jordan 2-4.webp", "/Sneaker/Adizero/Jordan 2-5.webp",], badge: "" },
+{ id: 147, brand: "Jordan", name: "Air Jordan 1 Mid black", price: 1999.00, image: "/Sneaker/Adizero/Jordan 1-1.webp", gallery: ["/Sneaker/Adizero/Jordan 1-2.webp", "/Sneaker/Adizero/Jordan 1-3.webp", "/Sneaker/Adizero/Jordan 1-4.webp", "/Sneaker/Adizero/Jordan 1-5.webp"], badge: "" },
+{ id: 148, brand: "Jordan", name: "Air Jordan 1 Mid purple", price: 1999.00, image: "/Sneaker/Adizero/Jordan 3-1.webp", gallery: ["/Sneaker/Adizero/Jordan 3-1.jpg", "/Sneaker/Adizero/Jordan 3-2.webp", "/Sneaker/Adizero/Jordan 3-3.webp", "/Sneaker/Adizero/Jordan 3-4.webp", "/Sneaker/Adizero/Jordan 3-5.webp"], badge: "" },
+{ id: 149, brand: "Jordan", name: "Air Jordan 1 Mid", price: 1999.00, image: "/Sneaker/Adizero/Jordan 4-1.webp", gallery: ["/Sneaker/Adizero/Jordan 4-6.webp", "/Sneaker/Adizero/Jordan 4-2.webp", "/Sneaker/Adizero/Jordan 4-3.webp", "/Sneaker/Adizero/Jordan 4-4.webp", "/Sneaker/Adizero/Jordan 4-5.webp", "/Sneaker/Adizero/Jordan 4-7.webp"], badge: "" },
+{ id: 150, brand: "Jordan", name: "Dior x Air Jordan 1 Retro High", price: 1999.00, image: "/Sneaker/Adizero/Jordan 5-1.webp", gallery: ["/Sneaker/Adizero/Jordan 5-5.webp", "/Sneaker/Adizero/Jordan 5-2.webp", "/Sneaker/Adizero/Jordan 5-3.webp", "/Sneaker/Adizero/Jordan 5-4.webp", "/Sneaker/Adizero/Jordan 5-5.webp"], badge: "" },
+{ id: 151, brand: "Jordan", name: "Jordan 1 Retro High Og Sp Fragment x Travis Scott", price: 1999.00, image: "/Sneaker/Adizero/Jordan 6-2.webp", gallery: ["/Sneaker/Adizero/Jordan 6-4.webp", "/Sneaker/Adizero/Jordan 6-1.webp", "/Sneaker/Adizero/Jordan 6-3.webp",], badge: "" },
+{ id: 152, brand: "Jordan", name: "Limited aiR Jordan", price: 2299.00, image: "/Sneaker/Adizero/Jordan 7-1.webp", gallery: ["/Sneaker/Adizero/Jordan 7-5.webp", "/Sneaker/Adizero/Jordan 7-2.webp", "/Sneaker/Adizero/Jordan 7-3.webp", "/Sneaker/Adizero/Jordan 7-4.webp"], badge: "" },
+{ id: 153, brand: "Jordan", name: "Limited Jordan", price: 2299.00, image: "/Sneaker/Adizero/Jordan 8-1.webp", gallery: ["/Sneaker/Adizero/Jordan 8-4.webp", "/Sneaker/Adizero/Jordan 8-2.webp", "/Sneaker/Adizero/Jordan 8-3.webp", "/Sneaker/Adizero/Jordan 8-4.webp", "/Sneaker/Adizero/Jordan 8-5.webp"], badge: "" },
+{ id: 154, brand: "Jordan", name: "Jordan limited edition", price: 2399.00, image: "/Sneaker/Adizero/Jordan 9-1.webp", gallery: ["/Sneaker/Adizero/Jordan 9-5.webp", "/Sneaker/Adizero/Jordan 9-2.webp", "/Sneaker/Adizero/Jordan 9-3.webp", "/Sneaker/Adizero/Jordan 9-4.webp"], badge: "" },
+{ id: 155, brand: "Jordan", name: "Limited edition AIR Jordan", price: 2399.00, image: "/Sneaker/Adizero/Jordan 10-1.webp", gallery: ["/Sneaker/Adizero/Jordan 10-5.webp", "/Sneaker/Adizero/Jordan 10-2.webp", "/Sneaker/Adizero/Jordan 10-3.webp", "/Sneaker/Adizero/Jordan 10-4.webp", "/Sneaker/Adizero/Jordan 10-5.webp"], badge: "" },
+{ id: 156, brand: "Jordan", name: "Air Jordan 1 Mid SE 'French Blue'", price: 1999.00, image: "/Sneaker/Adizero/Jordan 11-1.webp", gallery: ["/Sneaker/Adizero/Jordan 11-4.webp", "/Sneaker/Adizero/Jordan 11-2.webp", "/Sneaker/Adizero/Jordan 11-3.webp", "/Sneaker/Adizero/Jordan 11-4.webp", "/Sneaker/Adizero/Jordan 11-5.webp"], badge: "" },
+{ id: 157, brand: "Jordan", name: "Jordan 1", price: 2199.00, image: "/Sneaker/Adizero/Jordan 12-1.webp", gallery: ["/Sneaker/Adizero/Jordan 12-3.webp", "/Sneaker/Adizero/Jordan 12-2.webp", "/Sneaker/Adizero/Jordan 12-3.webp", "/Sneaker/Adizero/Jordan 12-4.webp", "/Sneaker/Adizero/Jordan 12-5.webp"], badge: "" },
+
+
+// New balance
+
+     { id: 123, brand: "New balance", name: "New Balance 9060 black", price: 1299.00, image: "/public/Sneaker/Balance 1-1.webp", gallery: ["/public/Sneaker/Balance 1-2.webp", "/public/Balance 1-3.webp", "public/Sneaker/Balance 1-4.webp","public/Sneaker/Balance 1-5.webp","public/Sneaker/Balance 1-3.webp"], badge: "" },
+     { id: 123, brand: "New balance", name: "New Balance 9060 grey", price: 1299.00, image: "/public/Sneaker/Balance 2-1.webp", gallery: ["/public/Sneaker/Balance 2-2.webp", "/public/Balance 2-3.webp", "public/Sneaker/Balance 2-4.webp","public/Sneaker/Balance 2-5.webp","public/Sneaker/Balance 2-6.webp"], badge: "" },
+     { id: 123, brand: "New balance", name: "New Balance 9060", price: 1299.00, image: "/public/Sneaker/Balance 3-1.webp", gallery: ["/public/Sneaker/Balance 3-2.webp", "/public/Balance 3-3.webp", "public/Sneaker/Balance 3-2.webp"], badge: "" },
+     { id: 123, brand: "New balance", name: "New Balance 9060", price: 1299.00, image: "/public/Sneaker/Balance 4-1.webp", gallery: ["/public/Sneaker/Balance 4-2.webp", "/public/Balance 4-3.webp", "public/Sneaker/Balance 4-2.webp"], badge: "" },
+     { id: 123, brand: "New balance", name: "New Balance 9060", price: 1299.00, image: "/public/Sneaker/Balance 5-1.webp", gallery: ["/public/Sneaker/Balance 5-2.webp", "/public/Balance 5-3.webp", "public/Sneaker/Balance 5-2.webp"], badge: "" },
+
+
+
+    //  Sports shoes
+         { id: 123, brand: "Sports shoes", name: "Nike sports shoes", price: 1299.00, image: "/public/Sneaker/sports 1.webp", gallery: ["/public/Sneaker/sports 2.webp", "/public/Sneaker/sports 3.webp","/public/Sneaker/sports 2.webp"], badge: "" },
+         { id: 123, brand: "Sports shoes", name: "Nike sports shoes", price: 1299.00, image: "/public/Sneaker/sports 1-1.webp", gallery: ["/public/Sneaker/sports 1-2.webp", "/public/Sneaker/sports 1-3.webp","/public/Sneaker/sports 1-4.webp"], badge: "" },
+         { id: 123, brand: "Sports shoes", name: "Nike sports shoes", price: 1299.00, image: "/public/Sneaker/sports 2-1.webp", gallery: ["/public/Sneaker/sports 2-2.webp", "/public/Sneaker/sports 2-3.webp","/public/Sneaker/sports 2-4.webp"], badge: "" },
+         { id: 123, brand: "Sports shoes", name: "Nike sports shoes", price: 1299.00, image: "/public/Sneaker/sports 3-1.webp", gallery: ["/public/Sneaker/sports 3-2.webp", "/public/Sneaker/sports 3-3.webp","/public/Sneaker/sports 3-4.webp"], badge: "" },
+         { id: 123, brand: "Sports shoes", name: "Nike sports shoes", price: 1299.00, image: "/public/Sneaker/sports 4-1.webp", gallery: ["/public/Sneaker/sports 4-2.webp", "/public/Sneaker/sports 4-1.webp"], badge: "" },
+    { id: 117, brand: "Sports shoes", name: "Adizero EVO SL Shoes", price: 2399.00, image: "/Sneaker/Adizero/Adizero 1-1.webp", gallery: ["/Sneaker/Adizero/Adizero 1-1.webp", "/Sneaker/Adizero/Adizero 1-2.webp", "/Sneaker/Adizero/Adizero 1-3.webp", "/Sneaker/Adizero/Adizero 1-4.webp"], badge: "" },
+    { id: 118, brand: "Sports shoes", name: "Adizero EVO SL Shoes", price: 2399.00, image: "/Sneaker/Adizero/Adizero 2-1.webp", gallery: ["/Sneaker/Adizero/Adizero 2-1.webp", "/Sneaker/Adizero/Adizero 2-2.webp", "/Sneaker/Adizero/Adizero 2-3.webp", "/Sneaker/Adizero/Adizero 2-4.webp"], badge: "" },
+    { id: 119, brand: "Sports shoes", name: "Adizero EVO SL Shoes", price: 2399.00, image: "/Sneaker/Adizero/Adizero 3-1.webp", gallery: ["/Sneaker/Adizero/Adizero 3-1.webp", "/Sneaker/Adizero/Adizero 3-2.webp", "/Sneaker/Adizero/Adizero 3-3.webp"], badge: "" },
+    { id: 120, brand: "Sports shoes", name: "Adizero EVO SL Shoes blue", price: 2399.00, image: "/Sneaker/Adizero/Adizero 4-1.webp", gallery: ["/Sneaker/Adizero/Adizero 4-1.webp", "/Sneaker/Adizero/Adizero 4-3.webp"], badge: "" },
+  
+   
 ];
 
 export const collectionsData = [
     { name: "Nike sneakers", brand: "NIKE", image: "/Sneaker/nike air force.jpg" },
     { name: "Nike Air Jordan", brand: "JORDAN", image: "/Sneaker/Jordan 1-1.jpg" },
     { name: "Yeezy Series", brand: "ADIDAS", image: "/Sneaker/Ad 1-1.jpg" },
-    { name: "Yeezy Series", brand: "ADIDAS", image: "/Sneaker/Adizero 4-1.jpg" }
+    { name: "ROTRO 4", brand: "ROTRO", image: "/Sneaker/Retro 1.jpg" },
+    { name: "Boot", brand: "Boot", image: "./public/Sneaker/boot 1.jpg"},
+    { name: "New balance", brand: "New balance", image: "/Sneaker/Balance 4-1.jpg" },
+    { name: "Sports shoes", brand: "Sports shoes", image: "/Sneaker/Adizero 4-1.jpg" },
+   
+    // 
+
 ];
 
 export const shoeSizes = ["6", "7", "8", "9", "10"];
