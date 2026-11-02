@@ -27,3 +27,24 @@ Backend/.wwebjs_cache/
 *.njsproj
 *.sln
 *.sw?
+
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# WhatsApp sessions and cache
+**/.wwebjs_auth/
+**/.wwebjs_cache/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Build files
+dist/
+**/dist/
+
+# Logs
+*.log
