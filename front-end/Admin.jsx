@@ -16,7 +16,8 @@ export default function Admin() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get("http://localhost:5003/api/orders");
+                // const response = await axios.get("http://localhost:5003/api/orders");
+                const response = await axios.get("https://zorvic-t7th-qrwdxl653-vikashsaini78s-projects.vercel.app/api/orders");
                 if (response.data.success) {
                     // Yahan reverse() ki jagah sort() ka use kiya gaya hai
                     // Jo newest createdAt date ko top par rakhega
