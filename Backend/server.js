@@ -60,20 +60,22 @@
 //   });
 // }
 
-
 // module.exports = app;
 
 
-require('dotenv').config(); // Zaroori: Local mein env load karne ke liye
+
+require('dotenv').config(); // Local testing ke liye .env variables load karta hai
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 
+// Apne routes import karein
 const orderRoutes = require('./Router'); 
 
 const app = express();
 
+// CORS aur JSON parsing middleware
 app.use(cors({
     origin: "*", 
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -81,12 +83,12 @@ app.use(cors({
 }));
 
 app.use(express.json()); 
+
+// Note: Vercel par uploads folder kaam nahi karega, future mein Cloudinary use karein
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// --- Step 4: Serverless MongoDB Connection Caching ---
-// Agar Vercel par env variable nahi mila toh by default local server try karega (jo Vercel par fail hoga)
+// --- Serverless MongoDB Connection Caching ---
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/zenvikk'; 
-
 let isConnected = false;
 
 const connectDB = async () => {
@@ -96,8 +98,7 @@ const connectDB = async () => {
   }
 
   try {
-    // FIX 1: serverSelectionTimeoutMS lagana zaroori hai. 
-    // Isse agar DB connect nahi hua toh 5 second mein error de dega, app hang nahi hogi.
+    // serverSelectionTimeoutMS: 5000 lagana zaroori hai taaki app 5s mein fail ho, hang na ho
     const db = await mongoose.connect(MONGO_URI, {
         serverSelectionTimeoutMS: 5000, 
     });
@@ -114,9 +115,9 @@ const connectDB = async () => {
 app.use(async (req, res, next) => {
   try {
     await connectDB();
-    next(); // Agar connect ho gaya toh agle route par bhejo
+    next(); // Agar connect ho gaya toh request aage routes par bhejo
   } catch (error) {
-    // FIX 2: Yahan 'return' lagana zaroori hai taaki request yahin stop ho jaye
+    // Agar DB connect nahi hua toh yahin se error return kar do (timeout se bachne ke liye)
     return res.status(500).json({ 
         success: false, 
         error: "Database connection failed", 
@@ -125,15 +126,15 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Default Route
+// Default Health Check Route (Vercel par check karne ke liye)
 app.get('/', (req, res) => {
-  res.status(200).json({ success: true, message: "Backend is running successfully on Vercel!" });
+  res.status(200).json({ success: true, message: "Zenvikk Backend is running successfully on Vercel!" });
 });
 
-// API routes ko link karna
+// Aapke API routes
 app.use('/api', orderRoutes);
 
-// Vercel par listen command ignore hoti hai, jo ki sahi hai
+// Local environment ke liye server listen (Vercel isko ignore kar dega)
 if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 5003;
   app.listen(PORT, () => {
@@ -141,4 +142,5 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
+// Vercel Serverless Function ke liye app export karna zaroori hai
 module.exports = app;
