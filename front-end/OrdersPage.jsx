@@ -8,7 +8,7 @@ function OrdersPage() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get("https://zorvic-t7th-qrwdxl653-vikashsaini78s-projects.vercel.app/api/orders");
+                const response = await axios.get("http://localhost:5003/api/orders");
                 setOrders(response.data.data); // Data ko state me save kiya
             } catch (error) {
                 console.error("Orders fetch karne me error aayi:", error);
