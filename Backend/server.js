@@ -61,7 +61,6 @@
 // }
 
 // module.exports = app;
-
 require('dotenv').config(); 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -73,11 +72,16 @@ const orderRoutes = require('./Router');
 
 const app = express();
 
-// CORS aur JSON parsing middleware
+// 1. CORS UPDATE MAIN FIX
+// origin me "*" ki jagah specific URLs dale gaye hain
 app.use(cors({
-    origin: "*", 
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
+    origin: [
+        "http://localhost:5173", // Local frontend ke liye
+        "https://aapka-frontend-domain.vercel.app" // Future me jab frontend live karein, toh yahan uska link daal dein (bina last me / lagaye)
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json()); 
@@ -85,8 +89,7 @@ app.use(express.json());
 // Note: Vercel par uploads folder kaam nahi karega, future mein Cloudinary use karein
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// 1. MAIN FIX: Default Health Check Route sabse upar rakha hai
-// Ab link kholne par hamesha instantly "true" aayega bina DB ka wait kiye
+// Default Health Check Route sabse upar rakha hai
 app.get('/', (req, res) => {
     res.status(200).json({ success: true, message: "Zenvikk Backend is running successfully on Vercel!" });
 });
@@ -95,7 +98,6 @@ app.get('/', (req, res) => {
 const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://vikashbanskhoh_db_user:nXKvmy8N3WYq5lfA@cluster0.qjwegfq.mongodb.net/Zorvic'; 
 
 const connectDB = async () => {
-    // 2. MAIN FIX: Mongoose ka official readyState check
     if (mongoose.connection.readyState >= 1) {
         console.log("=> Using existing database connection");
         return;
@@ -112,11 +114,11 @@ const connectDB = async () => {
     }
 };
 
-// 3. MAIN FIX: DB connection sirf API routes ke liye chalega
+// DB connection sirf API routes ke liye chalega
 app.use('/api', async (req, res, next) => {
     try {
         await connectDB();
-        next(); // Agar connect ho gaya toh request aage routes par bhejo
+        next(); 
     } catch (error) {
         return res.status(500).json({ 
             success: false, 
@@ -124,13 +126,13 @@ app.use('/api', async (req, res, next) => {
             details: error.message 
         });
     }
-}, orderRoutes); // API routes ko yahin attach kar diya
+}, orderRoutes); 
 
 // Local environment ke liye server listen (Vercel isko ignore kar dega)
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 5003;
     app.listen(PORT, async () => {
-        await connectDB(); // Local PC par start hote hi connect karega
+        await connectDB(); 
         console.log(`✅ Backend Server Port ${PORT} par chal raha hai...`);
     });
 }
