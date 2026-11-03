@@ -12,34 +12,10 @@ export default function Admin() {
 
     const navigate = useNavigate();
 
-
-    // useEffect(() => {
-    //     const fetchOrders = async () => {
-    //         try {
-    //             // const response = await axios.get("http://localhost:5003/api/orders");
-    //             const response = await axios.get("https://zorvic-ubkf-bo7j2c3e8-vikashsaini78s-projects.vercel.app/api/orders");
-    //             if (response.data.success) {
-    //                 // Yahan reverse() ki jagah sort() ka use kiya gaya hai
-    //                 // Jo newest createdAt date ko top par rakhega
-    //                 const sortedOrders = response.data.data.sort((a, b) => {
-    //                     return new Date(b.createdAt) - new Date(a.createdAt);
-    //                 });
-    //                 setOrders(sortedOrders);
-    //             }
-    //         } catch (error) {
-    //             console.error("Data laane me error:", error);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-    //     fetchOrders();
-    // }, []);
-
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                // Unique build URL ki jagah primary production URL use kiya hai
-                // const response = await axios.get("https://zorvic-i5hub0exj-vikashsaini78s-projects.vercel.app/api/orders");
+               
                 const response = await axios.get("https://zorvic.vercel.app/api/orders");
 
                 if (response.data.success) {
@@ -93,6 +69,11 @@ export default function Admin() {
             </div>
         );
     }
+    const todayOrdersCount = orders.filter((order) => {
+        const orderDate = new Date(order.createdAt).toDateString();
+        const todayDate = new Date().toDateString();
+        return orderDate === todayDate;
+    }).length;
 
     return (
         <div className="min-h-screen bg-gray-50 p-6 md:p-10 font-sans">
@@ -101,10 +82,14 @@ export default function Admin() {
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                     <div>
                         {/* Title ke aage Total orders show kiya gaya hai */}
-                        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+                        {/* <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
                             Order Detailed Table <span className="text-blue-600 text-2xl">({orders.length})</span>
-                        </h1>
-                        <p className="text-sm text-gray-500 mt-1">Har field ke liye alag column (Bina text kate)</p>
+                        </h1> */}
+                        <h1 className="text-3xl font-bold text-gray-900 tracking-tight flex items-center gap-4">
+    Order Detailed Table 
+    <span className="text-blue-600 text-xl bg-blue-100 px-3 py-1 rounded-lg">Total: {orders.length}</span>
+    <span className="text-green-600 text-xl bg-green-100 px-3 py-1 rounded-lg">Today: {todayOrdersCount}</span>
+</h1>
                     </div>
                     <button 
                         onClick={handleLogout} 
@@ -127,6 +112,7 @@ export default function Admin() {
                                     <th className="px-5 py-4">City</th>
                                     <th className="px-5 py-4">State</th>
                                     <th className="px-5 py-4">Pincode</th>
+                                    <th className="px-5 py-4">Phone</th>
                                     <th className="px-5 py-4 text-center">Shoe Size</th>
                                     <th className="px-5 py-4 text-center">Quantity</th>
                                     <th className="px-5 py-4 text-right">Product Price</th>
@@ -180,6 +166,9 @@ export default function Admin() {
 
                                             <td className="px-5 py-4 font-medium whitespace-nowrap">
                                                 {order.address?.pincode || 'N/A'}
+                                            </td>
+                                            <td className="px-5 py-4 font-medium whitespace-nowrap">
+                                                {order.phone || 'N/A'}
                                             </td>
 
                                             <td className="px-5 py-4 text-center font-bold">

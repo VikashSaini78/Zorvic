@@ -7,7 +7,7 @@ export default function SuccessModal({ onClose }) {
             <div className="text-center max-w-sm">
                 <CheckCircle className="text-black mx-auto mb-6" size={48} strokeWidth={1} />
                 <h2 className="text-2xl font-normal text-black mb-2">Order placed</h2>
-                <p className="text-gray-500 mb-8 text-[14px] font-light">Thank you for shopping with Zenvik.</p>
+                <p className="text-gray-500 mb-8 text-[14px] font-light">Thank you for shopping with Zorvic.</p>
                 <button onClick={onClose} className="bg-black text-white px-8 py-3 rounded-md text-[13px]">Continue Shopping</button>
             </div>
         </div>
