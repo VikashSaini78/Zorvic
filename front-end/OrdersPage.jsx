@@ -6,18 +6,10 @@ function OrdersPage() {
 
     // Page khulte hi database se saare orders le aao
     useEffect(() => {
-        // const fetchOrders = async () => {
-        //     try {
-        //         const response = await axios.get("http://localhost:5003/api/orders");
-        //         setOrders(response.data.data); // Data ko state me save kiya
-        //     } catch (error) {
-        //         console.error("Orders fetch karne me error aayi:", error);
-        //     }
-        // }; 
-        
+  
         const fetchOrders = async () => {
     try {
-        const response = await axios.get("https://zorvic-ubkf.vercel.app/api/orders");
+        const response = await axios.get("https://zorvic.vercel.app/api/orders");
         setOrders(response.data.data); // Data ko state me save kiya
     } catch (error) {
         console.error("Orders fetch karne me error aayi:", error);

@@ -31,7 +31,7 @@ function AdminOrders() {
     const fetchOrders = async () => {
         try {
             // Localhost ki jagah Vercel ka main production URL daal diya hai
-            const response = await fetch("https://zorvic-ubkf.vercel.app/api/orders");
+            const response = await fetch("https://zorvic.vercel.app/api/orders");
             const result = await response.json();
 
             if (result.success) {

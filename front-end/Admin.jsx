@@ -40,7 +40,7 @@ export default function Admin() {
             try {
                 // Unique build URL ki jagah primary production URL use kiya hai
                 // const response = await axios.get("https://zorvic-i5hub0exj-vikashsaini78s-projects.vercel.app/api/orders");
-                const response = await axios.get("https://zorvic-ubkf.vercel.app/api/orders");
+                const response = await axios.get("https://zorvic.vercel.app/api/orders");
 
                 if (response.data.success) {
                     // Spread operator [...] ka use karke array ki copy banayi hai taaki original data mutate na ho

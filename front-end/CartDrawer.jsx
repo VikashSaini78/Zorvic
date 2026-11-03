@@ -1,7 +1,7 @@
 import React from 'react';
-import { X } from 'lucide-react';
+import { X, Trash2 } from 'lucide-react';
 
-export default function CartDrawer({ cart, onClose, updateQuantity, onCheckout, totalAmount }) {
+export default function CartDrawer({ cart, onClose, updateQuantity, onRemove, onCheckout, totalAmount }) {
     return (
         <div className="fixed inset-0 z-50 flex justify-end bg-black/40 backdrop-blur-sm animate-in fade-in">
             <div className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
@@ -29,10 +29,20 @@ export default function CartDrawer({ cart, onClose, updateQuantity, onCheckout, 
                                             <span className="text-[13px] text-black">Rs. {(item.price * item.quantity).toFixed(2)}</span>
                                         </div>
                                     </div>
-                                    <div className="flex items-center mt-2 border border-gray-300 rounded-md w-min">
-                                        <button onClick={() => updateQuantity(item.cartId, -1)} className="px-3 py-1 text-black text-[14px]">-</button>
-                                        <span className="px-2 py-1 text-[12px] min-w-[20px] text-center">{item.quantity}</span>
-                                        <button onClick={() => updateQuantity(item.cartId, 1)} className="px-3 py-1 text-black text-[14px]">+</button>
+                                    <div className="flex items-center justify-between mt-2">
+                                        <div className="flex items-center border border-gray-300 rounded-md w-min">
+                                            <button onClick={() => updateQuantity(item.cartId, -1)} className="px-3 py-1 text-black text-[14px]">-</button>
+                                            <span className="px-2 py-1 text-[12px] min-w-[20px] text-center">{item.quantity}</span>
+                                            <button onClick={() => updateQuantity(item.cartId, 1)} className="px-3 py-1 text-black text-[14px]">+</button>
+                                        </div>
+                                        {/* Added Remove Button Here */}
+                                        <button 
+                                            onClick={() => onRemove(item.cartId)} 
+                                            className="flex items-center gap-1 text-[11px] text-gray-400 hover:text-red-500 transition-colors"
+                                        >
+                                            <Trash2 size={14} />
+                                            <span>Remove</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
