@@ -88,7 +88,8 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // --- Serverless MongoDB Connection Caching ---
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/zenvikk'; 
+// const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://vikashbanskhoh_db_user:nXKvmy8N3WYq5lfA@cluster0.qjwegfq.mongodb.net//zenvikk';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://vikashbanskhoh_db_user:nXKvmy8N3WYq5lfA@cluster0.qjwegfq.mongodb.net/Zorvic'; 
 let isConnected = false;
 
 const connectDB = async () => {

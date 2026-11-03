@@ -9,11 +9,29 @@ function AdminOrders() {
         fetchOrders();
     }, []);
 
+    // const fetchOrders = async () => {
+    //     try {
+    //         // Backend se GET request karke data mangwa rahe hain
+    //         const response = await fetch("http://localhost:5003/api/orders");
+    //         const result = await response.json();
+
+    //         if (result.success) {
+    //             setOrders(result.data); // Data state me save kar liya
+    //         } else {
+    //             console.error("Failed to fetch orders");
+    //         }
+    //     } catch (error) {
+    //         console.error("❌ Error fetching data:", error);
+    //     } finally {
+    //         setLoading(false); // Loading band kar di
+    //     }
+    // };
+
+
     const fetchOrders = async () => {
         try {
-            // Backend se GET request karke data mangwa rahe hain
-            const response = await fetch("http://localhost:5003/api/orders");
-            // const response = await fetch("https://zorvic-t7th-qrwdxl653-vikashsaini78s-projects.vercel.app/api/orders");
+            // Localhost ki jagah Vercel ka main production URL daal diya hai
+            const response = await fetch("https://zorvic-ubkf.vercel.app/api/orders");
             const result = await response.json();
 
             if (result.success) {

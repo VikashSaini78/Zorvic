@@ -13,15 +13,37 @@ export default function Admin() {
     const navigate = useNavigate();
 
 
+    // useEffect(() => {
+    //     const fetchOrders = async () => {
+    //         try {
+    //             // const response = await axios.get("http://localhost:5003/api/orders");
+    //             const response = await axios.get("https://zorvic-ubkf-bo7j2c3e8-vikashsaini78s-projects.vercel.app/api/orders");
+    //             if (response.data.success) {
+    //                 // Yahan reverse() ki jagah sort() ka use kiya gaya hai
+    //                 // Jo newest createdAt date ko top par rakhega
+    //                 const sortedOrders = response.data.data.sort((a, b) => {
+    //                     return new Date(b.createdAt) - new Date(a.createdAt);
+    //                 });
+    //                 setOrders(sortedOrders);
+    //             }
+    //         } catch (error) {
+    //             console.error("Data laane me error:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //     fetchOrders();
+    // }, []);
+
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get("http://localhost:5003/api/orders");
-                // const response = await axios.get("https://zorvic-t7th-qrwdxl653-vikashsaini78s-projects.vercel.app/api/orders");
+                // Unique build URL ki jagah primary production URL use kiya hai
+                const response = await axios.get("https://zorvic-ubkf.vercel.app/api/orders");
+                
                 if (response.data.success) {
-                    // Yahan reverse() ki jagah sort() ka use kiya gaya hai
-                    // Jo newest createdAt date ko top par rakhega
-                    const sortedOrders = response.data.data.sort((a, b) => {
+                    // Spread operator [...] ka use karke array ki copy banayi hai taaki original data mutate na ho
+                    const sortedOrders = [...response.data.data].sort((a, b) => {
                         return new Date(b.createdAt) - new Date(a.createdAt);
                     });
                     setOrders(sortedOrders);
@@ -32,8 +54,11 @@ export default function Admin() {
                 setLoading(false);
             }
         };
+        
         fetchOrders();
     }, []);
+
+
 
     const handleLogout = () => {
         localStorage.removeItem("isAdmin");

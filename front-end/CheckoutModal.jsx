@@ -41,13 +41,20 @@ export default function CheckoutModal({ cart, totalAmount, onClose, onSubmit }) 
                 price: totalAmount || 0                               
             };
 
-            const response = await axios.post("http://localhost:5003/api/orders", orderData);
-            // const response = await axios.post("https://zorvic-t7th-qrwdxl653-vikashsaini78s-projects.vercel.app/api/orders", orderData);
+            // const response = await axios.post("http://localhost:5003/api/orders", orderData);
             
-            if (response.data.success) {
-                if (onSubmit) onSubmit(); 
-                else onClose();
-            }
+            // if (response.data.success) {
+            //     if (onSubmit) onSubmit(); 
+            //     else onClose();
+            // }
+
+            const response = await axios.post("https://zorvic-ubkf.vercel.app/api/orders", orderData);
+            
+if (response.data.success) {
+    if (onSubmit) onSubmit(); 
+    else onClose();
+}
+
         } catch (error) {
             console.error("❌ Order Error:", error);
             alert("Order save nahi hua. Kripya details check karein.");
