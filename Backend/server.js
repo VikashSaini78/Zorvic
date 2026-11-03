@@ -74,14 +74,19 @@ const app = express();
 
 // 1. CORS UPDATE MAIN FIX
 // origin me "*" ki jagah specific URLs dale gaye hain
+// app.use(cors({
+//     origin: [
+//         "http://localhost:5173", // Local frontend ke liye
+//         "https://aapka-frontend-domain.vercel.app" // Future me jab frontend live karein, toh yahan uska link daal dein (bina last me / lagaye)
+//     ],
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"]
+// }));
 app.use(cors({
-    origin: [
-        "http://localhost:5173", // Local frontend ke liye
-        "https://aapka-frontend-domain.vercel.app" // Future me jab frontend live karein, toh yahan uska link daal dein (bina last me / lagaye)
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"]
+  origin: ["https://zorvic-852l.vercel.app", "http://localhost:5173"], 
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
 }));
 
 app.use(express.json()); 
