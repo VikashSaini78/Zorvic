@@ -41,13 +41,6 @@ export default function CheckoutModal({ cart, totalAmount, onClose, onSubmit }) 
                 price: totalAmount || 0                               
             };
 
-            // const response = await axios.post("http://localhost:5003/api/orders", orderData);
-            
-            // if (response.data.success) {
-            //     if (onSubmit) onSubmit(); 
-            //     else onClose();
-            // }
-
             const response = await axios.post("https://zorvic.vercel.app/api/orders", orderData);
             
 if (response.data.success) {

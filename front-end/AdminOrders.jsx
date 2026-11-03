@@ -9,42 +9,25 @@ function AdminOrders() {
         fetchOrders();
     }, []);
 
-    // const fetchOrders = async () => {
-    //     try {
-    //         // Backend se GET request karke data mangwa rahe hain
-    //         const response = await fetch("http://localhost:5003/api/orders");
-    //         const result = await response.json();
+const fetchOrders = async () => {
+    try {
+        const response = await fetch("https://zorvic.vercel.app/api/orders");
+        const result = await response.json();
 
-    //         if (result.success) {
-    //             setOrders(result.data); // Data state me save kar liya
-    //         } else {
-    //             console.error("Failed to fetch orders");
-    //         }
-    //     } catch (error) {
-    //         console.error("❌ Error fetching data:", error);
-    //     } finally {
-    //         setLoading(false); // Loading band kar di
-    //     }
-    // };
+        // 👇 Yahan console.log if condition se PEHLE lagaya hai
+        console.log("🔥 API Ka Pura Response:", result); 
 
-
-    const fetchOrders = async () => {
-        try {
-            // Localhost ki jagah Vercel ka main production URL daal diya hai
-            const response = await fetch("https://zorvic.vercel.app/api/orders");
-            const result = await response.json();
-
-            if (result.success) {
-                setOrders(result.data); // Data state me save kar liya
-            } else {
-                console.error("Failed to fetch orders");
-            }
-        } catch (error) {
-            console.error("❌ Error fetching data:", error);
-        } finally {
-            setLoading(false); // Loading band kar di
+        if (result.success) {
+            setOrders(result.data); 
+        } else {
+            console.error("❌ Failed to fetch orders. API ne success false bheja hai.");
         }
-    };
+    } catch (error) {
+        console.error("🚨 API call hi fail ho gayi:", error);
+    } finally {
+        setLoading(false); 
+    }
+};
 
     return (
         <div className="min-h-screen bg-gray-50 p-6 md:p-12 font-sans">
