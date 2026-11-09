@@ -76,12 +76,12 @@ if (response.data.success) {
 
                         <h2 className="text-xl font-medium text-gray-900 mb-4">Delivery</h2>
                         
-                        <div className="relative border border-gray-300 rounded-md bg-white focus-within:border-black transition">
+                        {/* <div className="relative border border-gray-300 rounded-md bg-white focus-within:border-black transition">
                             <label className="absolute top-1.5 left-3 text-[11px] text-gray-500">Country/Region</label>
                             <select name="country" required defaultValue="India" className="w-full px-3 pt-5 pb-2 bg-transparent outline-none text-[14px] appearance-none cursor-pointer">
                                 <option value="India">India</option>
                             </select>
-                        </div>
+                        </div> */}
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <input type="text" name="fname" placeholder="First name" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-black outline-none text-[14px]" />

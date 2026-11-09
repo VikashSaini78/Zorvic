@@ -1,66 +1,3 @@
-// const express = require('express');
-// const mongoose = require('mongoose');
-// const cors = require('cors');
-// const path = require('path');
-
-// const orderRoutes = require('./Router'); 
-
-// const app = express();
-
-
-// app.use(cors({
-//     origin: "*", 
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     credentials: true
-// }));
-
-// app.use(express.json()); 
-// app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-
-// // --- Step 4: Serverless MongoDB Connection Caching ---
-// const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/zenvikk'; 
-
-// let isConnected = false;
-
-// const connectDB = async () => {
-//   if (isConnected) return;
-
-//   try {
-//     const db = await mongoose.connect(MONGO_URI);
-//     isConnected = db.connections[0].readyState === 1;
-//     console.log("✅ MongoDB Database Successfully Connect Ho Gaya!");
-//   } catch (err) {
-//     console.log("❌ MongoDB Connection Error:", err.message);
-//     throw err;
-//   }
-// };
-
-// app.use(async (req, res, next) => {
-//   try {
-//     await connectDB();
-//     next();
-//   } catch (error) {
-//     res.status(500).json({ error: "Database connection failed", details: error.message });
-//   }
-// });
-
-
-// app.get('/', (req, res) => {
-//   res.status(200).json({ success: true, message: "Backend is running successfully on Vercel!" });
-// });
-
-// // API routes ko link karna
-// app.use('/api', orderRoutes);
-
-
-// if (process.env.NODE_ENV !== 'production') {
-//   const PORT = process.env.PORT || 5003;
-//   app.listen(PORT, () => {
-//     console.log(`✅ Backend Server Port ${PORT} par chal raha hai...`);
-//   });
-// }
-
-// module.exports = app;
 require('dotenv').config(); 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -72,17 +9,6 @@ const orderRoutes = require('./Router');
 
 const app = express();
 
-// 1. CORS UPDATE MAIN FIX
-// origin me "*" ki jagah specific URLs dale gaye hain
-// app.use(cors({
-//     origin: [
-//         "http://localhost:5173", // Local frontend ke liye
-//         "https://aapka-frontend-domain.vercel.app" // Future me jab frontend live karein, toh yahan uska link daal dein (bina last me / lagaye)
-//     ],
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//     credentials: true,
-//     allowedHeaders: ["Content-Type", "Authorization"]
-// }));
 app.use(cors({
   origin: ["https://zorvic-852l.vercel.app", "http://localhost:5173"], 
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
