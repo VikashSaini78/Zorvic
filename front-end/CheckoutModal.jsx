@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import axios from 'axios';
+import emailjs from '@emailjs/browser'; // 👈 1. EmailJS Import kiya
 
 export default function CheckoutModal({ cart, totalAmount, onClose, onSubmit }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
@@ -16,16 +17,24 @@ export default function CheckoutModal({ cart, totalAmount, onClose, onSubmit }) 
             let shoeSize = "Unknown";
             let shoeQty = 1;
             let shoeImg = "no-image.jpg";
+            let shoeName = "Zorvic Shoes"; 
 
+            // 👇 Yahan cart ka ALL DATA nikalne ka logic fix kiya gaya hai
             if (cart && cart.length > 0) {
+                // Backend ke liye pehle item ka main data
                 shoeSize = cart[0].size || "Unknown";
-                shoeQty = cart[0].quantity || 1;
                 shoeImg = cart[0].image || "no-image.jpg";
+                
+                // Total quantity calculate karna (Agar 2+ items hain)
+                shoeQty = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+                
+                // Email me sabhi joote unke size ke sath dikhane ke liye (e.g., "Nike Air (Size: 8), Puma (Size: 9)")
+                shoeName = cart.map(item => `${item.name} (Size: ${item.size})`).join(" | ");
             }
 
             const orderData = {
                 customerName: formDataObj.fname + " " + formDataObj.lname, 
-                email: formDataObj.email,         
+                email: formDataObj.email,        
                 phone: formDataObj.phone,
                 address: {
                     street: formDataObj.address,
@@ -41,12 +50,43 @@ export default function CheckoutModal({ cart, totalAmount, onClose, onSubmit }) 
                 price: totalAmount || 0                               
             };
 
+            // 1. Pehle aapke backend par order save hoga
             const response = await axios.post("https://zorvic.vercel.app/api/orders", orderData);
             
-if (response.data.success) {
-    if (onSubmit) onSubmit(); 
-    else onClose();
-}
+            // 2. Agar backend ne success bola, toh Email bhejenge
+            if (response.data.success) {
+                
+                // 👇 EMAILJS KA CODE SHURU 👇
+                const templateParams = {
+                    order_id: "ORD-" + Math.floor(Math.random() * 100000), 
+                    name: formDataObj.fname + " " + formDataObj.lname,     
+                    shoe_name: shoeName, // 👈 Isme ab sabhi shoes aur unka Size aayega
+                    units: shoeQty,      // 👈 Total kitne shoes order hue hain (Quantity)                                  
+                    price: "₹" + totalAmount.toFixed(2),                   
+                    cost_total: "₹" + totalAmount.toFixed(2),
+                    image_link: shoeImg  // 👈 Image ka naam/link bhi bhej diya hai
+                };
+
+                // Aapki exact IDs yahan daal di hain
+                emailjs.send(
+                    'service_y0o51pa',    
+                    'template_vycig7t',   
+                    templateParams,
+                    'zavqN0mZHN8QoU7Vp'     
+                )
+                .then(() => {
+                    console.log("Admin ko notification mail chala gaya!");
+                })
+                .catch((err) => {
+                    console.error("Email notification fail ho gaya:", err);
+                });
+                // 👆 EMAILJS KA CODE KHATAM 👆
+
+                alert("Order successfully placed!"); // Customer ko message dikhega
+
+                if (onSubmit) onSubmit(); 
+                else onClose();
+            }
 
         } catch (error) {
             console.error("❌ Order Error:", error);
@@ -55,14 +95,13 @@ if (response.data.success) {
             setIsSubmitting(false); 
         }
     };
-
     return (
         <div className="fixed inset-0 bg-white z-[60] flex flex-col md:flex-row overflow-y-auto animate-in slide-in-from-bottom-10 font-sans">
             <button onClick={onClose} className="absolute top-6 right-6 text-black hover:text-gray-500 z-50 bg-white/50 p-2 rounded-full">
                 <X size={20} strokeWidth={1.5} />
             </button>
             
-            {/* 👇 FORM SECTION: Mobile me order-2 (niche), Desktop me md:order-1 (left me) */}
+            {/* 👇 FORM SECTION */}
             <div className="w-full md:w-[55%] p-6 md:p-12 lg:pl-[15%] lg:pr-12 bg-white flex flex-col min-h-screen border-r border-gray-200 order-2 md:order-1">
                 <div className="max-w-xl ml-auto w-full">
                     <div className="flex justify-between items-end mb-4 pt-4">
@@ -76,13 +115,6 @@ if (response.data.success) {
 
                         <h2 className="text-xl font-medium text-gray-900 mb-4">Delivery</h2>
                         
-                        {/* <div className="relative border border-gray-300 rounded-md bg-white focus-within:border-black transition">
-                            <label className="absolute top-1.5 left-3 text-[11px] text-gray-500">Country/Region</label>
-                            <select name="country" required defaultValue="India" className="w-full px-3 pt-5 pb-2 bg-transparent outline-none text-[14px] appearance-none cursor-pointer">
-                                <option value="India">India</option>
-                            </select>
-                        </div> */}
-
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <input type="text" name="fname" placeholder="First name" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-black outline-none text-[14px]" />
                             <input type="text" name="lname" placeholder="Last name" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-black outline-none text-[14px]" />
@@ -106,7 +138,6 @@ if (response.data.success) {
                             <input type="tel" name="phone" placeholder="Mobile Phone Number" required className="w-full px-3 py-3 bg-white border border-gray-300 rounded-md focus:border-black outline-none text-[14px]" />
                         </div>
 
-                        {/* NO PAYMENT METHOD HERE - DIRECT CONFIRM ORDER BUTTON */}
                         <div className="pt-2 pb-12">
                             <button type="submit" disabled={isSubmitting} className={`w-full text-white py-4 rounded-md transition text-[15px] font-medium tracking-wide ${isSubmitting ? 'bg-gray-400' : 'bg-black hover:bg-gray-800 shadow-lg'}`}>
                                 {isSubmitting ? 'Processing...' : 'Confirm order'}
@@ -116,7 +147,7 @@ if (response.data.success) {
                 </div>
             </div>
 
-            {/* 👇 CART/PRODUCT SECTION: Mobile me order-1 (upar), Desktop me md:order-2 (right me) */}
+            {/* 👇 CART/PRODUCT SECTION */}
             <div className="w-full md:w-[45%] bg-gray-50 md:bg-white p-6 md:p-12 lg:pr-[15%] lg:pl-10 flex flex-col border-l border-gray-200 order-1 md:order-2">
                 <div className="max-w-md mr-auto w-full pt-4">
                     <div className="space-y-4 pb-6">
@@ -132,6 +163,7 @@ if (response.data.success) {
                                     <h4 className="text-[14px] text-[#333333] font-medium leading-snug">{item.name}</h4>
                                     <p className="text-[12px] text-[#737373] mt-0.5">Size: {item.size}</p>
                                 </div>
+                                {/* 👉 Yahan Price calculation error theek kiya gaya hai */}
                                 <div className="text-[14px] text-[#333333] font-medium">₹{(item.price * (item.quantity || 1)).toFixed(2)}</div>
                             </div>
                         ))}
@@ -157,6 +189,3 @@ if (response.data.success) {
         </div>
     );
 }
-
-
-
