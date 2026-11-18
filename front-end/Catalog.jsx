@@ -5,7 +5,7 @@ import { shoesData } from './mockData';
 // baaki ka code waisa hi rahega...
 
 export default function CatalogView({ navigateTo, activeFilter, setActiveFilter }) {
-    const brands = ['All', 'Nike', 'Adidas', 'Jordan', 'Rotro','Boot','Sports','New balance']; 
+    const brands = ['All', 'Nike','brooks','Adidas', 'Jordan', 'Rotro','Boot','Sports','New balance']; 
 
     const filteredShoes = activeFilter === 'All' 
         ? shoesData 
