@@ -8,8 +8,8 @@ export default function HomeView({ navigateTo }) {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const heroBanners = [
-        "/Sneaker/Kick Start the Streets.png",
-        "/Sneaker/baner 2.png",
+        "/Sneaker/baner 01.png",
+        "/Sneaker/baner 02.png",
         "/Sneaker/baner 1.png"
     ];
 
